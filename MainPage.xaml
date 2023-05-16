@@ -8,7 +8,32 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <StackPanel Orientation="Vertical">
+        <MenuBar>
+            <MenuBarItem Title="File">
+                <MenuFlyoutItem Text="Export"/>
+                <MenuFlyoutItem Text="Exit"/>
+            </MenuBarItem>
+            <MenuBarItem Title="Edit">
+                <MenuFlyoutItem Text="Add Item"/>
+                <MenuFlyoutItem Text="Clear Collection"/>
+            </MenuBarItem>
+            <MenuBarItem Title="Help">
+                <MenuFlyoutItem Text="About"/>
+            </MenuBarItem>
+        </MenuBar>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical"> <!--collection buttons-->
+                <Button> collection 1</Button>
+                <Button> collection 2</Button>
+                <Button> collection 3</Button>
 
-    </Grid>
+            </StackPanel>
+            <StackPanel Orientation="Vertical"> <!--item view-->
+
+
+
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
 </Page>
