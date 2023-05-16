@@ -24,10 +24,10 @@
             </MenuBarItem>
         </MenuBar>
         <StackPanel Orientation="Horizontal">
-            <StackPanel Orientation="Vertical"> <!--collection buttons-->
-                <Button> collection 1</Button>
-                <Button> collection 2</Button>
-                <Button> collection 3</Button>
+            <StackPanel x:Name="colButs" Orientation="Vertical"> <!--collection buttons-->
+                <Button Margin="10"> collection 1</Button>
+                <Button Margin="10"> collection 2</Button>
+                <Button Margin="10"> collection 3</Button>
 
             </StackPanel>
             <StackPanel Orientation="Vertical"> <!--item view-->
