@@ -188,6 +188,11 @@ namespace collectionTest1
             Home.Visibility = Visibility.Collapsed;
 
         }
+
+        private void resize(object sender, SizeChangedEventArgs e)
+        {
+            colButs.Height = e.NewSize.Height - 40;
+        }
     }
 }
 

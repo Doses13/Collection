@@ -25,7 +25,7 @@
             </MenuBar>
             <StackPanel x:Name="Home" Orientation="Horizontal">
                 <ScrollViewer>
-                    <StackPanel x:Name="colButs" Background="#303030" Orientation="Vertical" Height="10000">
+                    <StackPanel x:Name="colButs" Background="#303030" Orientation="Vertical">
                         <!--collection buttons-->
                         <Button x:Name="colButton" Margin="10" Width="200" Click="NewCollectionFunc">New Collection (+)</Button>
                         <!-- this stays here -->
