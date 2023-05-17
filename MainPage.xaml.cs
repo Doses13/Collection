@@ -57,6 +57,15 @@ namespace collectionTest1
             test.Height = 50;
             buttons.Add(test);
             colButs.Children.Add(buttons[0]);
+
         }
+
+        public void NewCollectionFunc(object sender, RoutedEventArgs e)
+        {
+            Home.Visibility = Visibility.Collapsed;
+
+        }
+
     }
 }
+

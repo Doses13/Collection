@@ -22,11 +22,11 @@
                 <MenuFlyoutItem Text="About"/>
             </MenuBarItem>
         </MenuBar>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel x:Name="Home" Orientation="Horizontal">
             <ScrollViewer>
                 <StackPanel x:Name="colButs" Background="DimGray" Orientation="Vertical">
                     <!--collection buttons-->
-                    <Button Margin="10" Width="200">New Collection (+)</Button>
+                    <Button x:Name="colButton" Margin="10" Width="200" Click="NewCollectionFunc">New Collection (+)</Button>
                     <!-- this stays here -->
 
                 </StackPanel>
