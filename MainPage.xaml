@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="300" d:DesignWidth="300"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <StackPanel Orientation="Vertical">
@@ -24,12 +23,14 @@
             </MenuBarItem>
         </MenuBar>
         <StackPanel Orientation="Horizontal">
-            <StackPanel x:Name="colButs" Background="DimGray" Orientation="Vertical">
-                <!--collection buttons-->
-                <Button Margin="10" Width="200">New Collection (+)</Button>
-                <!-- this stays here -->
+            <ScrollViewer>
+                <StackPanel x:Name="colButs" Background="DimGray" Orientation="Vertical">
+                    <!--collection buttons-->
+                    <Button Margin="10" Width="200">New Collection (+)</Button>
+                    <!-- this stays here -->
 
-            </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
             <Grid x:Name="ItemGrid" Width="500" >
                 <!--item view-->
                 <Grid.ColumnDefinitions>

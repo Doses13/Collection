@@ -49,6 +49,14 @@ namespace collectionTest1
 
             }
 
+            List<Button> buttons = new List<Button>();
+            Button test = new Button();
+            test.Content = "Test";
+            test.Margin = new Thickness(10);
+            test.Width = 200;
+            test.Height = 50;
+            buttons.Add(test);
+            colButs.Children.Add(buttons[0]);
         }
     }
 }
