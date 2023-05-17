@@ -112,6 +112,8 @@ namespace collectionTest1
         {
             // Toggle home page visible
             Home.Visibility = Visibility.Visible;
+            //Toggle addItem page collapsed
+            addItem.Visibility = Visibility.Collapsed;
 
             // Calculate where this button should go on the grid
             int column = buttonCounter / 6;
