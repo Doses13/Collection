@@ -25,7 +25,16 @@ namespace collectionTest1
 {
     public sealed partial class MainPage : Page
     {
-        List<Collection> collection_list = new List<Collection>();
+        // This list stores all the collections that the user currently has.
+        // Gui items should only be added for collections and items present in it.        
+        List<Collection> collectionList = new List<Collection>();
+
+        // This variable stores the active collection i.e. the collection whos items are
+        // being shown on the screen.
+        // To change the active collection the refresh function should be ran
+        // which will automatically update this variable and the items shown on the screen.
+        int activeCollection = 0;
+
         List<Button> gridButtonList = new List<Button>();
         //wantedItemAttributes wantedItems;
         int buttonCounter = 0;
@@ -38,7 +47,7 @@ namespace collectionTest1
 
             //init collections
             Collection rocks = new Collection();
-            collection_list.Add(rocks);
+            collectionList.Add(rocks);
             rocks.name = "My Rocks";
             rocks.attributes.Add("Color");
 
@@ -48,15 +57,15 @@ namespace collectionTest1
 
             rocks.items.Add(rock1);
 
-            for (int i = 0; i < collection_list.Count; i++)
+            for (int i = 0; i < collectionList.Count; i++)
             {
                 Button colBut = new Button();
-                colBut.Content = collection_list[i].name;
+                colBut.Content = collectionList[i].name;
                 colBut.Width = 200;
                 colBut.Height = 50;
                 colBut.Margin = new Thickness(10);
                 colBut.CornerRadius = new CornerRadius(10);
-                colButs.Children.Insert(collection_list.Count-1, colBut);
+                colButs.Children.Insert(collectionList.Count-1, colBut);
 
             }
 
@@ -183,17 +192,44 @@ namespace collectionTest1
 
             file = await picker.PickSingleFileAsync();
         }
-        
+
+        private void refresh(int collectionNumber)
+        {
+            activeCollection = collectionNumber;
+            for (int i = 0; i < collectionList[activeCollection].items.Count(); i++)
+            {
+                // Remove all current items from screen
+                Button addItemButton = (Button)ItemGrid.Children.Last(); // add back last
+                for (int j = 0; j < ItemGrid.Children.Count()-1; j++)
+                {
+                    if (ItemGrid.Children[j].GetType() is Button)
+                    {
+                        ItemGrid.Children.RemoveAt(j);
+                    }
+                }
+
+                // Add new items
+                
+            }
+
+        }
 
         public void NewCollectionFunc(object sender, RoutedEventArgs e)
         {
             Home.Visibility = Visibility.Collapsed;
+            addItem.Visibility = Visibility.Collapsed;
+            addCollection.Visibility = Visibility.Visible;
 
         }
 
         private void resize(object sender, SizeChangedEventArgs e)
         {
             colButs.Height = e.NewSize.Height - 40;
+        }
+
+        public void addAttribute(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
