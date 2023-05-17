@@ -27,6 +27,7 @@ namespace collectionTest1
         public MainPage()
         {
             this.InitializeComponent();
+
         }
     }
 }
