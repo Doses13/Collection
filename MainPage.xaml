@@ -25,7 +25,7 @@
         </MenuBar>
         <StackPanel Orientation="Horizontal">
             <StackPanel x:Name="colButs" Background="DimGray" Orientation="Vertical"> <!--collection buttons-->
-                <Button Margin="10" Width="200"> New Collection (+)</Button>
+                <Button Margin="10" Width="200"> New Collection (+)</Button> <!-- this stays here -->
 
             </StackPanel>
             <StackPanel Orientation="Vertical"> <!--item view-->
