@@ -56,5 +56,11 @@
             <Button x:Name="addItemImage" Content="Add Image" Height="25" Width="50" Click="addImageInAddItem"/>
 
         </StackPanel>
+        <Grid x:Name="addCollection" Visibility="Collapsed">
+            <TextBox x:Name="colName" Grid.Row="0" Grid.Column="0" Header="Enter Collection Name" PlaceholderText="Name" Width="300" HorizontalAlignment="Left" Margin="25"/>
+            <TextBox x:Name="attText" Grid.Row="2" Grid.Column="0" Header="Enter an Attribute" PlaceholderText="Attribute" Width="200" HorizontalAlignment="Left" Margin="25"/>
+            <Button x:Name="addAtt" Grid.Row="5" Grid.Column="5"/>
+            <Button x:Name="subAtt" Grid.Row="5" Grid.Column="8"/>
+        </Grid>
     </StackPanel>
 </Page>

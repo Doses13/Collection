@@ -186,12 +186,19 @@ namespace collectionTest1
         public void NewCollectionFunc(object sender, RoutedEventArgs e)
         {
             Home.Visibility = Visibility.Collapsed;
+            addItem.Visibility = Visibility.Collapsed;
+            addCollection.Visibility = Visibility.Visible;
 
         }
 
         private void resize(object sender, SizeChangedEventArgs e)
         {
             colButs.Height = e.NewSize.Height - 40;
+        }
+
+        public void addAttribute(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
