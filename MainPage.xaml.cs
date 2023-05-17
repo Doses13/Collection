@@ -119,7 +119,7 @@ namespace collectionTest1
 
         public async void newItemConfirm(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(itemName.Text))
+            if (!string.IsNullOrEmpty(itemName.Text))
             {
                 // Toggle home page visible
                 Home.Visibility = Visibility.Visible;
