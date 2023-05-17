@@ -119,62 +119,65 @@ namespace collectionTest1
 
         public async void newItemConfirm(object sender, RoutedEventArgs e)
         {
-            // Toggle home page visible
-            Home.Visibility = Visibility.Visible;
-            //Toggle addItem page collapsed
-            addItem.Visibility = Visibility.Collapsed;
-
-            // Calculate where this button should go on the grid
-            int column = buttonCounter / 6;
-            int row = buttonCounter % 6;
-            buttonCounter++;
-
-            // Check if an additional column is needed
-            if (row == 0)
+            if (string.IsNullOrEmpty(itemName.Text))
             {
-                ColumnDefinition col = new ColumnDefinition();
-                col.Width = new GridLength(100, GridUnitType.Auto);
-                ItemGrid.ColumnDefinitions.Add(col);
-            }
+                // Toggle home page visible
+                Home.Visibility = Visibility.Visible;
+                //Toggle addItem page collapsed
+                addItem.Visibility = Visibility.Collapsed;
 
-            // Check if item needs to go to next row 
-            if (buttonCounter < 6)
-            {
-                RowDefinition rowDef = new RowDefinition();
-                rowDef.Height = new GridLength(100, GridUnitType.Auto);
-                ItemGrid.RowDefinitions.Add(rowDef);
-            }
+                // Calculate where this button should go on the grid
+                int column = buttonCounter / 6;
+                int row = buttonCounter % 6;
+                buttonCounter++;
 
-            // Button and image created from user's input 
-            Button addedItemButton = new Button();
-            addedItemButton.Content = itemName.Text;
-            gridButtonList.Add(addedItemButton);
-            BitmapImage bitmapImage = new BitmapImage();
-            Image addedItemImage = new Image();
-
-            // Convert image to bitmapImage to use with grid
-            if (file != null)
-            {
-                using (IRandomAccessStream fileStream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
+                // Check if an additional column is needed
+                if (row == 0)
                 {
-
-                    await bitmapImage.SetSourceAsync(fileStream);
-                    addedItemImage.Source = bitmapImage;
-                    addedItemImage.Width = 100;
-                    addedItemImage.Height = 100;
-
+                    ColumnDefinition col = new ColumnDefinition();
+                    col.Width = new GridLength(100, GridUnitType.Auto);
+                    ItemGrid.ColumnDefinitions.Add(col);
                 }
-            }
 
-            // Add Button and image, shift "Add Item" button over
-            ItemGrid.Children.Add(addedItemButton);
-            ItemGrid.Children.Add(addedItemImage);
-            Grid.SetColumn(addedItemImage, column);
-            Grid.SetRow(addedItemImage, row);
-            Grid.SetColumn(addedItemButton, column);
-            Grid.SetRow(addedItemButton, row);
-            Grid.SetColumn(addButton, column);
-            Grid.SetRow(addButton, row + 1);
+                // Check if item needs to go to next row 
+                if (buttonCounter < 6)
+                {
+                    RowDefinition rowDef = new RowDefinition();
+                    rowDef.Height = new GridLength(100, GridUnitType.Auto);
+                    ItemGrid.RowDefinitions.Add(rowDef);
+                }
+
+                // Button and image created from user's input 
+                Button addedItemButton = new Button();
+                addedItemButton.Content = itemName.Text;
+                gridButtonList.Add(addedItemButton);
+                BitmapImage bitmapImage = new BitmapImage();
+                Image addedItemImage = new Image();
+
+                // Convert image to bitmapImage to use with grid
+                if (file != null)
+                {
+                    using (IRandomAccessStream fileStream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
+                    {
+
+                        await bitmapImage.SetSourceAsync(fileStream);
+                        addedItemImage.Source = bitmapImage;
+                        addedItemImage.Width = 100;
+                        addedItemImage.Height = 100;
+
+                    }
+                }
+
+                // Add Button and image, shift "Add Item" button over
+                ItemGrid.Children.Add(addedItemButton);
+                ItemGrid.Children.Add(addedItemImage);
+                Grid.SetColumn(addedItemImage, column);
+                Grid.SetRow(addedItemImage, row);
+                Grid.SetColumn(addedItemButton, column);
+                Grid.SetRow(addedItemButton, row);
+                Grid.SetColumn(addButton, column);
+                Grid.SetRow(addButton, row + 1);
+            }
         }
 
         // "Add Image" Button handler
