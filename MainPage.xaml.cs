@@ -26,6 +26,7 @@ namespace collectionTest1
         public MainPage()
         {
             this.InitializeComponent();
+            
 
             //init collections
             Collection rocks = new Collection();
