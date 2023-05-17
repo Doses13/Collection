@@ -28,11 +28,29 @@
                 <Button Margin="10" Width="200"> New Collection (+)</Button> <!-- this stays here -->
 
             </StackPanel>
-            <StackPanel Orientation="Vertical"> <!--item view-->
+            <Grid x:Name="ItemGrid" Width="500" >
+                <!--item view-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <Rectangle Grid.Row="0" Grid.Column="0" Fill="Red" Height="50" Margin="4" />
+                <Rectangle Grid.Row="0" Grid.Column="1" Fill="AliceBlue" Height="50" Margin="4"/>
+                <Rectangle Grid.Row="1" Grid.Column="1" Fill="Aqua" Height="50" Margin="4"/>
+                <Rectangle Grid.Row="2" Grid.Column="0" Fill="Aqua" Height="50" Margin="4"/>
+                <Rectangle Grid.Row="3" Grid.Column="3" Fill="Aqua" Height="50" Margin="4"/>
 
 
-
-            </StackPanel>
+            </Grid>
         </StackPanel>
     </StackPanel>
 </Page>
