@@ -23,10 +23,14 @@
             </MenuBarItem>
         </MenuBar>
         <StackPanel Orientation="Horizontal">
-            <StackPanel x:Name="colButs" Background="DimGray" Orientation="Vertical"> <!--collection buttons-->
-                <Button Margin="10" Width="200"> New Collection (+)</Button> <!-- this stays here -->
+            <ScrollViewer>
+                <StackPanel x:Name="colButs" Background="DimGray" Orientation="Vertical">
+                    <!--collection buttons-->
+                    <Button Margin="10" Width="200">New Collection (+)</Button>
+                    <!-- this stays here -->
 
-            </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
             <Grid x:Name="ItemGrid" Width="500" >
                 <!--item view-->
                 <Grid.ColumnDefinitions>
@@ -50,12 +54,6 @@
 
 
             </Grid>
-            <ScrollViewer>
-                <StackPanel x:Name="colButs" Background="DimGray" Orientation="Vertical">
-                    <!--collection buttons-->
-                    <Button Margin="10" Width="200">New Collection (+)</Button>
-                </StackPanel>
-            </ScrollViewer>
         </StackPanel>
     </StackPanel>
 </Page>
