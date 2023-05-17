@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <StackPanel Orientation="Vertical">
+    <StackPanel Orientation="Vertical" Background="#202020">
         <MenuBar>
             <MenuBarItem Title="File">
                 <MenuFlyoutItem Text="Export"/>
@@ -24,7 +24,7 @@
         </MenuBar>
         <StackPanel x:Name="Home" Orientation="Horizontal">
             <ScrollViewer>
-                <StackPanel x:Name="colButs" Background="DimGray" Orientation="Vertical" Height="10000">
+                <StackPanel x:Name="colButs" Background="#303030" Orientation="Vertical" Height="10000">
                     <!--collection buttons-->
                     <Button x:Name="colButton" Margin="10" Width="200" Click="NewCollectionFunc">New Collection (+)</Button>
                     <!-- this stays here -->
