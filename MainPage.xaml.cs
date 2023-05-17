@@ -19,14 +19,36 @@ using Windows.UI.Xaml.Navigation;
 
 namespace collectionTest1
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage : Page
     {
+        List<Collection> collection_list = new List<Collection>();
+
         public MainPage()
         {
             this.InitializeComponent();
+
+            //init collections
+            Collection rocks = new Collection();
+            collection_list.Add(rocks);
+            rocks.name = "My Rocks";
+            rocks.attributes.Add("Color");
+
+            Item rock1 = new Item();
+            rock1.name = "Agate";
+            rock1.attributes.Add("Red");
+
+            rocks.items.Add(rock1);
+
+            for (int i = 0; i < collection_list.Count; i++)
+            {
+                Button colBut = new Button();
+                colBut.Content = collection_list[i].name;
+                colBut.Width = 200;
+                colBut.Margin = new Thickness(10);
+                colButs.Children.Insert(collection_list.Count-1, colBut);
+
+            }
+
             List<Button> buttons = new List<Button>();
             Button test = new Button();
             test.Content = "Test";

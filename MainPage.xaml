@@ -23,15 +23,15 @@
             </MenuBarItem>
         </MenuBar>
         <StackPanel Orientation="Horizontal">
-            <ScrollViewer>
-                <StackPanel x:Name="colButs" Orientation="Vertical">
-                    <!--collection buttons-->
-                    <Button Margin="10">New Collection</Button>
-                    <Button Margin="10">collection 2</Button>
-                    <Button Margin="10">collection 3</Button>
-                    
-                </StackPanel>
-            </ScrollViewer>
+            <StackPanel x:Name="colButs" Background="DimGray" Orientation="Vertical"> <!--collection buttons-->
+                <Button Margin="10" Width="200"> New Collection (+)</Button>
+
+            </StackPanel>
+            <StackPanel Orientation="Vertical"> <!--item view-->
+
+
+
+            </StackPanel>
         </StackPanel>
     </StackPanel>
 </Page>
