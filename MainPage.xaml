@@ -24,8 +24,10 @@
             </MenuBarItem>
         </MenuBar>
         <StackPanel Orientation="Horizontal">
-            <StackPanel x:Name="colButs" Background="DimGray" Orientation="Vertical"> <!--collection buttons-->
-                <Button Margin="10" Width="200"> New Collection (+)</Button> <!-- this stays here -->
+            <StackPanel x:Name="colButs" Background="DimGray" Orientation="Vertical">
+                <!--collection buttons-->
+                <Button Margin="10" Width="200">New Collection (+)</Button>
+                <!-- this stays here -->
 
             </StackPanel>
             <Grid x:Name="ItemGrid" Width="500" >
