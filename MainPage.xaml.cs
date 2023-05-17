@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Shapes;
 
 // Joseph made this comment
 
@@ -26,6 +27,7 @@ namespace collectionTest1
         public MainPage()
         {
             this.InitializeComponent();
+            
 
             //init collections
             Collection rocks = new Collection();
@@ -57,7 +59,6 @@ namespace collectionTest1
             test.Height = 50;
             buttons.Add(test);
             colButs.Children.Add(buttons[0]);
-
         }
 
         public void NewCollectionFunc(object sender, RoutedEventArgs e)
