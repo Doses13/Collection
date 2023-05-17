@@ -34,7 +34,7 @@ namespace collectionTest1
         public MainPage()
         {
             this.InitializeComponent();
-            this.SizeChanged += resize;
+            //this.SizeChanged += resize;
 
             //init collections
             Collection rocks = new Collection();
