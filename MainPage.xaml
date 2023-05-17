@@ -9,46 +9,52 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <StackPanel Orientation="Vertical" Background="#202020">
-        <MenuBar>
-            <MenuBarItem Title="File">
-                <MenuFlyoutItem Text="Export"/>
-                <MenuFlyoutItem Text="Exit"/>
-            </MenuBarItem>
-            <MenuBarItem Title="Edit">
-                <MenuFlyoutItem Text="Add Item"/>
-                <MenuFlyoutItem Text="Clear Collection"/>
-            </MenuBarItem>
-            <MenuBarItem Title="Help">
-                <MenuFlyoutItem Text="About"/>
-            </MenuBarItem>
-        </MenuBar>
-        <StackPanel x:Name="Home" Orientation="Horizontal">
-            <ScrollViewer>
-                <StackPanel x:Name="colButs" Background="#303030" Orientation="Vertical" Height="2560">
-                    <Button x:Name="colButton" Margin="10" Width="200" Click="NewCollectionFunc">New Collection (+)</Button>
-                </StackPanel>
-            </ScrollViewer>
-            <Grid x:Name="ItemGrid" Width="500" >
-                <!--item view-->
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                </Grid.ColumnDefinitions>
+        <StackPanel x:Name="mainPage" Orientation="Vertical">
+            <MenuBar>
+                <MenuBarItem Title="File">
+                    <MenuFlyoutItem Text="Export"/>
+                    <MenuFlyoutItem Text="Exit"/>
+                </MenuBarItem>
+                <MenuBarItem Title="Edit">
+                    <MenuFlyoutItem Text="Add Item"/>
+                    <MenuFlyoutItem Text="Clear Collection"/>
+                </MenuBarItem>
+                <MenuBarItem Title="Help">
+                    <MenuFlyoutItem Text="About"/>
+                </MenuBarItem>
+            </MenuBar>
+            <StackPanel x:Name="Home" Orientation="Horizontal">
+                <ScrollViewer>
+                    <StackPanel x:Name="colButs" Background="#303030" Orientation="Vertical" Height="10000">
+                        <!--collection buttons-->
+                        <Button x:Name="colButton" Margin="10" Width="200" Click="NewCollectionFunc">New Collection (+)</Button>
+                        <!-- this stays here -->
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                </Grid.RowDefinitions>
-                <Rectangle Grid.Row="0" Grid.Column="0" Fill="Red" Height="50" Margin="4" />
-                <Rectangle Grid.Row="0" Grid.Column="1" Fill="AliceBlue" Height="50" Margin="4"/>
-                <Rectangle Grid.Row="1" Grid.Column="1" Fill="Aqua" Height="50" Margin="4"/>
-                <Rectangle Grid.Row="2" Grid.Column="0" Fill="Aqua" Height="50" Margin="4"/>
-                <Rectangle Grid.Row="3" Grid.Column="3" Fill="Aqua" Height="50" Margin="4"/>
-            </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+                <Grid x:Name="ItemGrid" Width="500" ColumnSpacing="25" RowSpacing="25">
+                    <!--item view--> 
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="addButton" Click="newItemFunc" Height="100" Width="100" HorizontalAlignment="Center">
+                        <TextBlock Text="Add Item (+)" />
+                    </Button>
+                   
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel x:Name="addItem" Orientation="Vertical" Visibility="Collapsed">
+            <TextBox x:Name="itemName" Header="Enter item name" PlaceholderText="Name" Width="300" HorizontalAlignment="Left" Margin="25" Visibility="Visible"/>
+            <TextBox x:Name="itemDescription" Header="Enter item Description" PlaceholderText="Description" Width="400" Height="200" Margin="20" Visibility="Visible" HorizontalAlignment="Left"/>
+            <TextBox x:Name="itemPrice" Header="Enter Price" PlaceholderText="Price" Width="150" Height="75" Margin="20" Visibility="Visible" HorizontalAlignment="Left"/>
+            <TextBox x:Name="itemCondition" Header="Enter Conditoion" PlaceholderText="Condition" Width="150" Height="75" Margin="20" Visibility="Visible" HorizontalAlignment="Left"/>
+            <Button x:Name="addItemConfirm" Content="Add Item" Click="newItemConfirm" Width="75" Height="25"/>
+            <Button x:Name="addItemImage" Content="Add Image" Height="25" Width="50" Click="addImageInAddItem"/>
+
         </StackPanel>
     </StackPanel>
 </Page>
