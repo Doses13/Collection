@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage.Streams;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -33,7 +34,7 @@ namespace collectionTest1
         public MainPage()
         {
             this.InitializeComponent();
-            
+            this.SizeChanged += resize;
 
             //init collections
             Collection rocks = new Collection();
@@ -52,7 +53,9 @@ namespace collectionTest1
                 Button colBut = new Button();
                 colBut.Content = collection_list[i].name;
                 colBut.Width = 200;
+                colBut.Height = 50;
                 colBut.Margin = new Thickness(10);
+                colBut.CornerRadius = new CornerRadius(10);
                 colButs.Children.Insert(collection_list.Count-1, colBut);
 
             }
