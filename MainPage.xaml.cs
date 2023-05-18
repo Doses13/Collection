@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage.Streams;
@@ -26,13 +27,14 @@ namespace collectionTest1
     public sealed partial class MainPage : Page
     {
         // This list stores all the collections that the user currently has.
-        // Gui items should only be added for collections and items present in it.        
+        // Gui items should only be added for collections and items present in it. JB    
         List<Collection> collectionList = new List<Collection>();
 
         // This variable stores the active collection i.e. the collection whos items are
         // being shown on the screen.
         // To change the active collection the refresh function should be ran
         // which will automatically update this variable and the items shown on the screen.
+        // DO NOT MODIFY VALUE or the wrong collection will be displayed. JB
         int activeCollection = 0;
 
         List<Button> gridButtonList = new List<Button>();
@@ -43,40 +45,19 @@ namespace collectionTest1
         public MainPage()
         {
             this.InitializeComponent();
-            //this.SizeChanged += resize;
+            this.SizeChanged += resize;
 
-            //init collections
+            // Init collections
             Collection rocks = new Collection();
             collectionList.Add(rocks);
             rocks.name = "My Rocks";
             rocks.attributes.Add("Color");
-
             Item rock1 = new Item();
             rock1.name = "Agate";
             rock1.attributes.Add("Red");
-
             rocks.items.Add(rock1);
 
-            for (int i = 0; i < collectionList.Count; i++)
-            {
-                Button colBut = new Button();
-                colBut.Content = collectionList[i].name;
-                colBut.Width = 200;
-                colBut.Height = 50;
-                colBut.Margin = new Thickness(10);
-                colBut.CornerRadius = new CornerRadius(10);
-                colButs.Children.Insert(collectionList.Count-1, colBut);
-
-            }
-
-            List<Button> buttons = new List<Button>();
-            Button test = new Button();
-            test.Content = "Test";
-            test.Margin = new Thickness(10);
-            test.Width = 200;
-            test.Height = 50;
-            buttons.Add(test);
-            colButs.Children.Add(buttons[0]);
+            refresh(activeCollection);
         }
 
 
@@ -191,33 +172,66 @@ namespace collectionTest1
             file = await picker.PickSingleFileAsync();
         }
 
+        // This function will display a particular collections items on the screen.
+        // It will also update the collections displayed on the left.
+        // To be called when items are added, removed, or modified in a collection internally
+        // This function takes a parameter to choose what collection is the active collection. JB
         private void refresh(int collectionNumber)
         {
-            activeCollection = collectionNumber;
-            for (int i = 0; i < collectionList[activeCollection].items.Count(); i++)
-            {
-                // Remove all current items from screen
-                Button addItemButton = (Button)ItemGrid.Children.Last(); // add back last
-                for (int j = 0; j < ItemGrid.Children.Count()-1; j++)
-                {
-                    if (ItemGrid.Children[j].GetType() is Button)
-                    {
-                        ItemGrid.Children.RemoveAt(j);
-                    }
-                }
+            activeCollection = collectionNumber; // Change active collection
+            
+            // Manage displaying of items
 
-                // Add new items
-                
+            // Remove all current items from screen
+            // TODO: code to remove all items from screen
+
+            // Add new items
+            for (int i = 0; i < collectionList[activeCollection].items.Count; i++)
+            {
+                // TODO: code for adding items to screen
             }
 
-        }
+            // Update collections displayed on left
 
+            // Save add collection button
+            Button addColBut = (Button)colButs.Children.Last();
+
+            // Remove existing colleciton buttons
+            colButs.Children.Clear();
+
+            // Update screen to display all the collections.
+            for (int i = 0; i < collectionList.Count; i++)
+            {
+                Button colBut = new Button();
+                colBut.Content = collectionList[i].name;
+                colBut.Width = 200;
+                colBut.Height = 50;
+                colBut.Margin = new Thickness(10);
+                colBut.CornerRadius = new CornerRadius(10);
+                colBut.Click += collectionButtons;
+                colButs.Children.Insert(collectionList.Count - 1, colBut);
+            }
+
+            // Add back 'add collection button'
+            colButs.Children.Add(addColBut);
+        }
+        // Called when a collection button is pressed.
+        private void collectionButtons(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < collectionList.Count; i++)
+            {
+                if (((Button)sender).Content.ToString() == collectionList[i].name)
+                {
+                    refresh(i);
+                }
+            }
+        }
         public void NewCollectionFunc(object sender, RoutedEventArgs e)
         {
             Home.Visibility = Visibility.Collapsed;
             addItem.Visibility = Visibility.Collapsed;
             addCollection.Visibility = Visibility.Visible;
-
+            // to whoever is working on this make sure that collections have unique names pls. JB
         }
 
         private void resize(object sender, SizeChangedEventArgs e)
