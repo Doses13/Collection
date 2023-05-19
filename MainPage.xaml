@@ -67,7 +67,7 @@
                 <Button x:Name="addAtt" Content="Add" Margin="10" Click="addAttribute"/>
                 <Button x:Name="subAtt" Content="Sub" Margin="10"/>
             </StackPanel>
-                <Button x:Name="addItemConfirmCol" Content="Add Item" Click="NewCollectionConfirm" Margin="10" HorizontalAlignment="Center" Width="200" Height="50" Background="ForestGreen"/>
+                <Button x:Name="addItemConfirmCol" Content="Add Collection" Click="NewCollectionConfirm" Margin="10" HorizontalAlignment="Center" Width="200" Height="50" Background="ForestGreen"/>
         </StackPanel>
         <StackPanel x:Name="singleItemView" Orientation="Vertical" Visibility="Collapsed">
             <Image x:Name="singleItemImage" Width="200" Height="200" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="25"/>

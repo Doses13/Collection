@@ -386,7 +386,11 @@ namespace collectionTest1
         {
             if(!string.IsNullOrEmpty(colName.Text))
             {
+                collectionList.Last().name = colName.Text;
+                colName.Text = "";
+                attText.Text = "";
                 changeScreen(screens.Home);
+                refresh(activeCollection + 1);
             }
             else 
             { 
