@@ -43,10 +43,11 @@ namespace collectionTest1
         // DO NOT MODIFY VALUE or the wrong collection will be displayed. JB
         int activeCollection = 0;
 
-        List<Button> gridButtonList = new List<Button>();
         //wantedItemAttributes wantedItems;
         int buttonCounter = 0;
+
         Windows.Storage.StorageFile file;
+
 
         //Navigation Variables
         screens currentScreen = screens.Home; //Home screen
@@ -137,10 +138,10 @@ namespace collectionTest1
                 }
 
                 // Button and image created from user's input 
-                Button addedItemButton = new Button();
+                /*Button addedItemButton = new Button();
                 addedItemButton.Content = addItemName.Text;
                 addedItemButton.VerticalContentAlignment = VerticalAlignment.Bottom;
-                gridButtonList.Add(addedItemButton);
+                gridButtonList.Add(addedItemButton);*/
 
 
                 // Convert image to bitmapImage to use with grid
@@ -159,15 +160,24 @@ namespace collectionTest1
                 }
 
                 // Add Button and image, shift "Add Item" button over
-                ItemGrid.Children.Add(addedItemButton);
+               // ItemGrid.Children.Add(addedItemButton);
                 ItemGrid.Children.Add(addedItemImage);
                 Grid.SetColumn(addedItemImage, column);
                 Grid.SetRow(addedItemImage, row);
-                Grid.SetColumn(addedItemButton, column);
-                Grid.SetRow(addedItemButton, row);
+                //Grid.SetColumn(addedItemButton, column);
+                //Grid.SetRow(addedItemButton, row);
                 Grid.SetColumn(addButton, column + buttonCounter);
                 Grid.SetRow(addButton, row);
             }
+        }
+
+        private void saveAddItem()
+        {
+           /* collectionList[activeCollection].items[buttonCounter].name = addItemName.Text;
+            foreach (var attributes in collectionList[activeCollection].attributes)
+            {
+                collectionList[activeCollection].items[buttonCounter].attributes[attributeCounter] = attributes;
+            }*/
         }
 
         // Event handler for when user clicks on an image of an item in the collection
@@ -175,7 +185,7 @@ namespace collectionTest1
         {
             changeScreen(screens.Single);
 
-            // Copies the text that user inputted when creating the item 
+            // Copies the text that user inputted whren creating the item 
             singleItemImage.Source = bitmapImage;
             singleViewName.Text = addItemName.Text;
             singleViewDescription.Text = addItemDescription.Text;
@@ -310,7 +320,7 @@ namespace collectionTest1
             {
                 Home.Visibility = Visibility.Visible;
                 addItem.Visibility = Visibility.Collapsed;
-                backButtonBar.Visibility = Visibility.Visible;
+                backButtonBar.Visibility = Visibility.Collapsed;
                 addCollection.Visibility = Visibility.Collapsed;
                 singleItemView.Visibility = Visibility.Collapsed;
                 currentScreen = screens.Home;

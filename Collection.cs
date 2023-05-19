@@ -9,6 +9,7 @@ namespace collectionTest1
     public class Collection
     {
         public string name;
+        public string description;
         public string image;
         public List<Item> items = new List<Item>();
         public List<string> attributes = new List<string>();
