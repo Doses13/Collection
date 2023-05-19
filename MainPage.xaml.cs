@@ -351,6 +351,7 @@ namespace collectionTest1
         {
             changeScreen(screens.AddCol);
             // to whoever is working on this make sure that collections have unique names pls. JB
+
         }
 
         private void resize(object sender, SizeChangedEventArgs e)
@@ -360,7 +361,10 @@ namespace collectionTest1
 
         public void addAttribute(object sender, RoutedEventArgs e)
         {
-
+            if(attText.Text != null)
+            {
+                
+            }
         }
     }
 }
