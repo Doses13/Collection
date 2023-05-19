@@ -53,7 +53,7 @@ namespace collectionTest1
         screens currentScreen = screens.Home; //Home screen
 
         BitmapImage bitmapImage = new BitmapImage();
-        Image addedItemImage = new Image();
+
 
         public MainPage()
         {
@@ -143,7 +143,7 @@ namespace collectionTest1
                 addedItemButton.VerticalContentAlignment = VerticalAlignment.Bottom;
                 gridButtonList.Add(addedItemButton);*/
 
-
+                Image addedItemImage = new Image();
                 // Convert image to bitmapImage to use with grid
                 if (file != null)
                 {
@@ -173,11 +173,12 @@ namespace collectionTest1
 
         private void saveAddItem()
         {
-           /* collectionList[activeCollection].items[buttonCounter].name = addItemName.Text;
-            foreach (var attributes in collectionList[activeCollection].attributes)
+            List<Item> items = new List<Item>();
+
+            foreach (Item item in collectionList[activeCollection].items)
             {
-                collectionList[activeCollection].items[buttonCounter].attributes[attributeCounter] = attributes;
-            }*/
+                //collectionList[activeCollection].items
+                    }
         }
 
         // Event handler for when user clicks on an image of an item in the collection
