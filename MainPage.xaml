@@ -32,7 +32,7 @@
                         <Button x:Name="colButton" Margin="10" Width="200" Height="50" CornerRadius="10" Click="NewCollectionFunc">New Collection (+)</Button>
                     </StackPanel>
                 </ScrollViewer>
-                <Grid x:Name="ItemGrid" Width="500" ColumnSpacing="25" RowSpacing="25" Cont>
+                <Grid x:Name="ItemGrid" Width="500" ColumnSpacing="25" RowSpacing="25">
                     <!--item view--> 
                     
                     <Grid.ColumnDefinitions>
