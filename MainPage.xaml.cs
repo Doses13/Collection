@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml.Serialization;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -17,6 +18,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
+using Windows.Storage;
 
 // Joseph made this comment
 
@@ -64,7 +66,7 @@ namespace collectionTest1
             this.InitializeComponent();
             this.SizeChanged += resize;
 
-            // Init collections
+            /* Init collections
             Collection rocks = new Collection();
             collectionList.Add(rocks);
             rocks.name = "My Rocks";
@@ -72,7 +74,7 @@ namespace collectionTest1
             Item rock1 = new Item();
             rock1.name = "Agate";
             rock1.attributes.Add("Red");
-            rocks.items.Add(rock1);
+            rocks.items.Add(rock1);//*/
 
             refresh(activeCollection);
         }
@@ -240,10 +242,9 @@ namespace collectionTest1
             // TODO: code to remove all items from screen
 
             // Add new items
-            for (int i = 0; i < collectionList[activeCollection].items.Count; i++)
-            {
-                // TODO: code for adding items to screen
-            }
+
+            // TODO: code for adding items to screen
+            
 
             // Update collections displayed on left
 
@@ -391,6 +392,47 @@ namespace collectionTest1
             { 
                 colRequiredField.Visibility = Visibility.Visible;
             }
+        }
+
+        private async void exportCol(object sender, RoutedEventArgs e)
+        {
+            if (collectionList.Count > 0)
+            {
+                var picker = new Windows.Storage.Pickers.FileSavePicker();
+                picker.FileTypeChoices.Add("Collection", new List<string> { ".col" });
+                Windows.Storage.StorageFile file = await picker.PickSaveFileAsync();
+                var serializer = new XmlSerializer(collectionList[activeCollection].GetType());
+                StringWriter writer = new StringWriter();
+                serializer.Serialize(writer, collectionList[activeCollection]);
+                await FileIO.WriteTextAsync(file, writer.ToString());
+                writer.Close();
+            }
+            else
+            {
+                //TODO: make message box pop-up saying that there are no colection to export.
+            }
+        }
+
+        private async void importCol(object sender, RoutedEventArgs e)
+        {
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.FileTypeFilter.Add(".col"); //This is necessary
+            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+            if (file != null)
+            {
+                Collection newCol = new Collection();
+                String data = await Windows.Storage.FileIO.ReadTextAsync(file);
+                var serializer = new XmlSerializer(newCol.GetType());
+                StringReader reader = new StringReader(data);
+                newCol = (Collection)serializer.Deserialize(reader);
+                collectionList.Add(newCol);
+                refresh(activeCollection);
+            }
+        }
+
+        private void clickExit(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Exit();
         }
     }
 }
