@@ -48,13 +48,12 @@
             </StackPanel>
         </StackPanel>
         <StackPanel x:Name="addItem" Orientation="Vertical" Visibility="Collapsed">
-            <TextBox x:Name="itemName" Header="Enter item name" PlaceholderText="Name" Width="300" HorizontalAlignment="Left" Margin="25" Visibility="Visible"/>
-            <TextBox x:Name="itemDescription" Header="Enter item Description" PlaceholderText="Description" Width="400" Height="200" Margin="20" Visibility="Visible" HorizontalAlignment="Left"/>
-            <TextBox x:Name="itemPrice" Header="Enter Price" PlaceholderText="Price" Width="150" Height="75" Margin="20" Visibility="Visible" HorizontalAlignment="Left"/>
-            <TextBox x:Name="itemCondition" Header="Enter Conditoion" PlaceholderText="Condition" Width="150" Height="75" Margin="20" Visibility="Visible" HorizontalAlignment="Left"/>
-            <Button x:Name="addItemConfirm" Content="Add Item" Click="newItemConfirm" Width="75" Height="25"/>
-            <Button x:Name="addItemImage" Content="Add Image" Height="25" Width="50" Click="addImageInAddItem"/>
-
+            <TextBox x:Name="addItemName" Header="Enter item name" PlaceholderText="Name" Width="300" HorizontalAlignment="Left" Margin="25" Visibility="Visible"/>
+            <TextBox x:Name="addItemDescription" Header="Enter item Description" PlaceholderText="Description" Width="400" Height="200" Margin="20" Visibility="Visible" HorizontalAlignment="Left"/>
+            <TextBox x:Name="addItemPrice" Header="Enter Price" PlaceholderText="Price" Width="150" Height="75" Margin="20" Visibility="Visible" HorizontalAlignment="Left"/>
+            <TextBox x:Name="addItemCondition" Header="Enter Conditoion" PlaceholderText="Condition" Width="150" Height="75" Margin="20" Visibility="Visible" HorizontalAlignment="Left"/>
+            <Button x:Name="addItemImage" Margin="10" HorizontalAlignment="left" Content="Add Image" Height="50" Width="150" Click="addImageInAddItem"/>
+            <Button x:Name="addItemConfirm" Content="Add Item" Click="newItemConfirm" Margin="10" HorizontalAlignment="Center" Width="200" Height="50" Background="ForestGreen"/>
         </StackPanel>
         <Grid x:Name="addCollection" Visibility="Collapsed">
             <TextBox x:Name="colName" Grid.Row="0" Grid.Column="0" Header="Enter Collection Name" PlaceholderText="Name" Width="300" HorizontalAlignment="Left" Margin="25"/>
@@ -62,6 +61,12 @@
             <Button x:Name="addAtt" Grid.Row="5" Grid.Column="5"/>
             <Button x:Name="subAtt" Grid.Row="5" Grid.Column="8"/>
         </Grid>
-        
+        <StackPanel x:Name="singleItemView" Orientation="Vertical" Visibility="Collapsed">
+            <Image x:Name="singleItemImage" Width="200" Height="200" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="25"/>
+            <TextBox x:Name="singleViewName" Header="Name" PlaceholderText="" Width="300" HorizontalAlignment="Left" Margin="25" Visibility="Visible" IsEnabled="False"/>
+            <TextBox x:Name="singleViewDescription" Header="Description" PlaceholderText="" Width="400" Height="200" Margin="20" Visibility="Visible" HorizontalAlignment="Left" IsEnabled="False"/>
+            <TextBox x:Name="singleViewPrice" Header="Price" PlaceholderText="" Width="150" Height="75" Margin="20" Visibility="Visible" HorizontalAlignment="Left" IsEnabled="False"/>
+            <TextBox x:Name="singleViewCondition" Header="Condition" PlaceholderText="" Width="150" Height="75" Margin="20" Visibility="Visible" HorizontalAlignment="Left" IsEnabled="False"/>
+        </StackPanel>
     </StackPanel>
 </Page>
