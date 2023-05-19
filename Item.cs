@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace collectionTest1
 {
@@ -10,7 +11,7 @@ namespace collectionTest1
     {
         public string name;
         public string description;
-        public string image;
+        public Image image;
         public List<string> attributes = new List<string>();
     }
 }

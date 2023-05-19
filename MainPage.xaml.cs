@@ -112,8 +112,13 @@ namespace collectionTest1
 
         public async void newItemConfirm(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(addItemName.Text))
+            if (!string.IsNullOrEmpty(addItemName.Text) && !string.IsNullOrEmpty(addItemDescription.Text))
             {
+                /*for (int i = 0; i < collectionList[activeCollection].attributes.Count(); i++)
+                {
+                    TextBox textBox = new TextBox();
+                }*/
+
                 changeScreen(screens.Home);
 
                 // Calculate where this button should go on the grid
@@ -171,14 +176,16 @@ namespace collectionTest1
             }
         }
 
-        private void saveAddItem()
+        private void saveAddItem(Item newlyAddedItem)
         {
             List<Item> items = new List<Item>();
-
-            foreach (Item item in collectionList[activeCollection].items)
+            for(int i = 0; i < collectionList[activeCollection].items.Count(); i++)
             {
-                //collectionList[activeCollection].items
-                    }
+                items.Add(collectionList[activeCollection].items[i]);
+            }
+
+            items.Add(newlyAddedItem);
+            collectionList[activeCollection].items = items;
         }
 
         // Event handler for when user clicks on an image of an item in the collection
@@ -186,12 +193,13 @@ namespace collectionTest1
         {
             changeScreen(screens.Single);
 
-            // Copies the text that user inputted whren creating the item 
-            singleItemImage.Source = bitmapImage;
-            singleViewName.Text = addItemName.Text;
-            singleViewDescription.Text = addItemDescription.Text;
-            singleViewCondition.Text = addItemCondition.Text;
-            singleViewPrice.Text = addItemPrice.Text;
+            Item tempItem = new Item();
+            tempItem.name = addItemName.Text;
+            tempItem.description = addItemDescription.Text;
+            tempItem.image.Source = bitmapImage;
+            saveAddItem(tempItem);
+
+            // Copies the text that user inputted whren creating the item  
         }
 
 
