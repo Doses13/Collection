@@ -26,6 +26,12 @@ namespace collectionTest1
 {
     public sealed partial class MainPage : Page
     {
+        enum screens{
+            Home,
+            AddItem,
+            AddCol,
+            Single,
+        }
         // This list stores all the collections that the user currently has.
         // Gui items should only be added for collections and items present in it. JB    
         List<Collection> collectionList = new List<Collection>();
@@ -37,10 +43,17 @@ namespace collectionTest1
         // DO NOT MODIFY VALUE or the wrong collection will be displayed. JB
         int activeCollection = 0;
 
-        List<Button> gridButtonList = new List<Button>();
         //wantedItemAttributes wantedItems;
         int buttonCounter = 0;
+
         Windows.Storage.StorageFile file;
+
+
+        //Navigation Variables
+        screens currentScreen = screens.Home; //Home screen
+
+        BitmapImage bitmapImage = new BitmapImage();
+        Image addedItemImage = new Image();
 
         public MainPage()
         {
@@ -76,9 +89,8 @@ namespace collectionTest1
         // When the "Condition" attribute is true, the textbox for "Condition" will be turned visible on the "Add item" page.
         public void newItemFunc(object sender, RoutedEventArgs e)
         {
-            Home.Visibility = Visibility.Collapsed;
-            TextBox itemName = new TextBox();
-            addItem.Visibility = Visibility.Visible;
+            changeScreen(screens.AddItem);
+                        
 
             // Toggle textboxes visible if attributes were selected when making collection
             /*
@@ -100,12 +112,9 @@ namespace collectionTest1
 
         public async void newItemConfirm(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(itemName.Text))
+            if (!string.IsNullOrEmpty(addItemName.Text))
             {
-                // Toggle home page visible
-                Home.Visibility = Visibility.Visible;
-                //Toggle addItem page collapsed
-                addItem.Visibility = Visibility.Collapsed;
+                changeScreen(screens.Home);
 
                 // Calculate where this button should go on the grid
                 int column = buttonCounter / 6;
@@ -121,7 +130,7 @@ namespace collectionTest1
                 }
 
                 // Check if item needs to go to next row 
-                if (buttonCounter < 6)
+                if (buttonCounter < 8)
                 {
                     RowDefinition rowDef = new RowDefinition();
                     rowDef.Height = new GridLength(100, GridUnitType.Auto);
@@ -129,11 +138,11 @@ namespace collectionTest1
                 }
 
                 // Button and image created from user's input 
-                Button addedItemButton = new Button();
-                addedItemButton.Content = itemName.Text;
-                gridButtonList.Add(addedItemButton);
-                BitmapImage bitmapImage = new BitmapImage();
-                Image addedItemImage = new Image();
+                /*Button addedItemButton = new Button();
+                addedItemButton.Content = addItemName.Text;
+                addedItemButton.VerticalContentAlignment = VerticalAlignment.Bottom;
+                gridButtonList.Add(addedItemButton);*/
+
 
                 // Convert image to bitmapImage to use with grid
                 if (file != null)
@@ -145,31 +154,58 @@ namespace collectionTest1
                         addedItemImage.Source = bitmapImage;
                         addedItemImage.Width = 100;
                         addedItemImage.Height = 100;
+                        addedItemImage.PointerPressed += AddedItemImage_PointerPressed;
 
                     }
                 }
 
                 // Add Button and image, shift "Add Item" button over
-                ItemGrid.Children.Add(addedItemButton);
+               // ItemGrid.Children.Add(addedItemButton);
                 ItemGrid.Children.Add(addedItemImage);
                 Grid.SetColumn(addedItemImage, column);
                 Grid.SetRow(addedItemImage, row);
-                Grid.SetColumn(addedItemButton, column);
-                Grid.SetRow(addedItemButton, row);
-                Grid.SetColumn(addButton, column);
-                Grid.SetRow(addButton, row + 1);
+                //Grid.SetColumn(addedItemButton, column);
+                //Grid.SetRow(addedItemButton, row);
+                Grid.SetColumn(addButton, column + buttonCounter);
+                Grid.SetRow(addButton, row);
             }
         }
+
+        private void saveAddItem()
+        {
+           /* collectionList[activeCollection].items[buttonCounter].name = addItemName.Text;
+            foreach (var attributes in collectionList[activeCollection].attributes)
+            {
+                collectionList[activeCollection].items[buttonCounter].attributes[attributeCounter] = attributes;
+            }*/
+        }
+
+        // Event handler for when user clicks on an image of an item in the collection
+        private void AddedItemImage_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            changeScreen(screens.Single);
+
+            // Copies the text that user inputted whren creating the item 
+            singleItemImage.Source = bitmapImage;
+            singleViewName.Text = addItemName.Text;
+            singleViewDescription.Text = addItemDescription.Text;
+            singleViewCondition.Text = addItemCondition.Text;
+            singleViewPrice.Text = addItemPrice.Text;
+        }
+
 
         // "Add Image" Button handler
         public async void addImageInAddItem(object sender, RoutedEventArgs e)
         {
-
+            // Create a file picker on button-press
             var picker = new Windows.Storage.Pickers.FileOpenPicker
             {
+                // Open file picker with settings default to typical image selecting (View mode larger, starting in 
+                // Picture directory of computer)
                 ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail,
                 SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary
             };
+            // Looks for JPG, JPEG, or PNG
             picker.FileTypeFilter.Add(".jpg");
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");
@@ -220,6 +256,85 @@ namespace collectionTest1
             // Add back 'add collection button'
             colButs.Children.Add(addColBut);
         }
+
+        // This function is to consolidate navigation
+        // Takes in the screen to change to and tries to make that change
+        // Returns 1 if the requested screen change is invalid
+        private int changeScreen(screens screen)
+        {
+            if(currentScreen == screens.Home && screen == screens.AddItem) // Home -> Add Item
+            {
+                Home.Visibility = Visibility.Collapsed;
+                addItem.Visibility = Visibility.Visible;
+                backButtonBar.Visibility = Visibility.Visible;
+                singleItemView.Visibility = Visibility.Collapsed;
+                currentScreen = screens.AddItem;
+                return 0;
+            }
+
+            if(currentScreen == screens.Home && screen == screens.AddCol) // Home -> Add Collection
+            {
+                Home.Visibility = Visibility.Collapsed;
+                addItem.Visibility = Visibility.Collapsed;
+                addCollection.Visibility = Visibility.Visible;
+                backButtonBar.Visibility = Visibility.Visible;
+                singleItemView.Visibility = Visibility.Collapsed;
+                currentScreen = screens.AddCol;
+                return 0;
+            }
+
+            if(currentScreen == screens.Home && screen == screens.Single) // Home -> Single Item View
+            {
+
+                Home.Visibility = Visibility.Collapsed;
+                addItem.Visibility = Visibility.Collapsed;
+                backButtonBar.Visibility = Visibility.Visible;
+                addCollection.Visibility = Visibility.Collapsed;
+                singleItemView.Visibility = Visibility.Visible;
+                currentScreen = screens.Single;
+                return 0;
+            }
+
+            if(currentScreen == screens.AddItem && screen == screens.Home) // Add Item -> Home
+            {
+                Home.Visibility = Visibility.Visible;
+                addItem.Visibility = Visibility.Collapsed;
+                backButtonBar.Visibility = Visibility.Collapsed;
+                singleItemView.Visibility = Visibility.Collapsed;
+                currentScreen = screens.Home;
+                return 0;
+            }
+
+            if(currentScreen == screens.AddCol && screen == screens.Home) // Add Collection -> Home
+            {
+                Home.Visibility = Visibility.Visible;
+                addItem.Visibility = Visibility.Visible;
+                addCollection.Visibility = Visibility.Collapsed;
+                backButtonBar.Visibility = Visibility.Collapsed;
+                singleItemView.Visibility = Visibility.Collapsed;
+                currentScreen = screens.Home;
+                return 0;
+            }
+
+            if(currentScreen == screens.Single && screen == screens.Home) // SIngle Item View -> Home
+            {
+                Home.Visibility = Visibility.Visible;
+                addItem.Visibility = Visibility.Collapsed;
+                backButtonBar.Visibility = Visibility.Collapsed;
+                addCollection.Visibility = Visibility.Collapsed;
+                singleItemView.Visibility = Visibility.Collapsed;
+                currentScreen = screens.Home;
+                return 0;
+            }
+
+            return 1;
+        }
+
+        private void backButtonPress(object sender, RoutedEventArgs e)
+        {
+            changeScreen(screens.Home);
+        }
+
         // Called when a collection button is pressed.
         private void collectionButtons(object sender, RoutedEventArgs e)
         {
@@ -233,9 +348,7 @@ namespace collectionTest1
         }
         public void NewCollectionFunc(object sender, RoutedEventArgs e)
         {
-            Home.Visibility = Visibility.Collapsed;
-            addItem.Visibility = Visibility.Collapsed;
-            addCollection.Visibility = Visibility.Visible;
+            changeScreen(screens.AddCol);
             // to whoever is working on this make sure that collections have unique names pls. JB
         }
 
