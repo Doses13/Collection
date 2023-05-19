@@ -26,6 +26,12 @@ namespace collectionTest1
 {
     public sealed partial class MainPage : Page
     {
+        enum screens{
+            Home,
+            AddItem,
+            AddCol,
+            Single
+        }
         // This list stores all the collections that the user currently has.
         // Gui items should only be added for collections and items present in it. JB    
         List<Collection> collectionList = new List<Collection>();
@@ -41,6 +47,9 @@ namespace collectionTest1
         //wantedItemAttributes wantedItems;
         int buttonCounter = 0;
         Windows.Storage.StorageFile file;
+
+        //Navigation Variables
+        screens currentScreen = screens.Home; //Home screen
 
         public MainPage()
         {
@@ -76,9 +85,8 @@ namespace collectionTest1
         // When the "Condition" attribute is true, the textbox for "Condition" will be turned visible on the "Add item" page.
         public void newItemFunc(object sender, RoutedEventArgs e)
         {
-            Home.Visibility = Visibility.Collapsed;
+            changeScreen(screens.AddItem);
             TextBox itemName = new TextBox();
-            addItem.Visibility = Visibility.Visible;
 
             // Toggle textboxes visible if attributes were selected when making collection
             /*
@@ -102,10 +110,7 @@ namespace collectionTest1
         {
             if (!string.IsNullOrEmpty(itemName.Text))
             {
-                // Toggle home page visible
-                Home.Visibility = Visibility.Visible;
-                //Toggle addItem page collapsed
-                addItem.Visibility = Visibility.Collapsed;
+                changeScreen(screens.Home);
 
                 // Calculate where this button should go on the grid
                 int column = buttonCounter / 6;
@@ -220,6 +225,70 @@ namespace collectionTest1
             // Add back 'add collection button'
             colButs.Children.Add(addColBut);
         }
+
+        // This function is to consolidate navigation
+        // Takes in the screen to change to and tries to make that change
+        // Returns 1 if the requested screen change is invalid
+        private int changeScreen(screens screen)
+        {
+            if(currentScreen == screens.Home && screen == screens.AddItem) // Home -> Add Item
+            {
+                Home.Visibility = Visibility.Collapsed;
+                addItem.Visibility = Visibility.Visible;
+                backButtonBar.Visibility = Visibility.Visible;
+                currentScreen = screens.AddItem;
+                return 0;
+            }
+
+            if(currentScreen == screens.Home && screen == screens.AddCol) // Home -> Add Collection
+            {
+                Home.Visibility = Visibility.Collapsed;
+                addItem.Visibility = Visibility.Collapsed;
+                addCollection.Visibility = Visibility.Visible;
+                backButtonBar.Visibility = Visibility.Visible;
+                currentScreen = screens.AddCol;
+                return 0;
+            }
+
+            if(currentScreen == screens.Home && screen == screens.Single) // Home -> Single Item View
+            {
+
+                return 0;
+            }
+
+            if(currentScreen == screens.AddItem && screen == screens.Home) // Add Item -> Home
+            {
+                Home.Visibility = Visibility.Visible;
+                addItem.Visibility = Visibility.Collapsed;
+                backButtonBar.Visibility = Visibility.Collapsed;
+                currentScreen = screens.Home;
+                return 0;
+            }
+
+            if(currentScreen == screens.AddCol && screen == screens.Home) // Add Collection -> Home
+            {
+                Home.Visibility = Visibility.Visible;
+                addItem.Visibility = Visibility.Visible;
+                addCollection.Visibility = Visibility.Collapsed;
+                backButtonBar.Visibility = Visibility.Collapsed;
+                currentScreen = screens.Home;
+                return 0;
+            }
+
+            if(currentScreen == screens.Single && screen == screens.Home) // SIngle Item View -> Home
+            {
+
+                return 0;
+            }
+
+            return 1;
+        }
+
+        private void backButtonPress(object sender, RoutedEventArgs e)
+        {
+            changeScreen(screens.Home);
+        }
+
         // Called when a collection button is pressed.
         private void collectionButtons(object sender, RoutedEventArgs e)
         {
@@ -233,9 +302,7 @@ namespace collectionTest1
         }
         public void NewCollectionFunc(object sender, RoutedEventArgs e)
         {
-            Home.Visibility = Visibility.Collapsed;
-            addItem.Visibility = Visibility.Collapsed;
-            addCollection.Visibility = Visibility.Visible;
+            changeScreen(screens.AddCol);
             // to whoever is working on this make sure that collections have unique names pls. JB
         }
 

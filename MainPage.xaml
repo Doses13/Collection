@@ -23,6 +23,9 @@
                     <MenuFlyoutItem Text="About"/>
                 </MenuBarItem>
             </MenuBar>
+            <CommandBar x:Name="backButtonBar" Visibility="Collapsed" AllowDrop="False" FlowDirection="RightToLeft" OverflowButtonVisibility="Collapsed">
+                <AppBarButton x:Name="backButton" Tag="Back" Icon="Back" Label="Back" Click="backButtonPress"></AppBarButton>
+            </CommandBar>
             <StackPanel x:Name="Home" Orientation="Horizontal">
                 <ScrollViewer>
                     <StackPanel x:Name="colButs" Background="#303030" Orientation="Vertical">
