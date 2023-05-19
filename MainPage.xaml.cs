@@ -36,6 +36,10 @@ namespace collectionTest1
         // Gui items should only be added for collections and items present in it. JB    
         List<Collection> collectionList = new List<Collection>();
 
+        //This is a temp collection that will get called new whenever we need to create
+        //a new collection. CK
+        Collection collection;
+
         // This variable stores the active collection i.e. the collection whos items are
         // being shown on the screen.
         // To change the active collection the refresh function should be ran
@@ -359,7 +363,8 @@ namespace collectionTest1
         {
             changeScreen(screens.AddCol);
             // to whoever is working on this make sure that collections have unique names pls. JB
-
+            collection = new Collection();
+            collectionList.Add(collection);
         }
 
         private void resize(object sender, SizeChangedEventArgs e)
@@ -369,9 +374,22 @@ namespace collectionTest1
 
         public void addAttribute(object sender, RoutedEventArgs e)
         {
-            if(attText.Text != null)
+            if(attText.Text!=null || attText.Text=="")
             {
-                
+                collectionList.Last().attributes.Add(attText.Text);
+                attText.Text = "";
+            }
+        }
+
+        public void NewCollectionConfirm(object sender, RoutedEventArgs e)
+        {
+            if(!string.IsNullOrEmpty(colName.Text))
+            {
+                changeScreen(screens.Home);
+            }
+            else 
+            { 
+                colRequiredField.Visibility = Visibility.Visible;
             }
         }
     }

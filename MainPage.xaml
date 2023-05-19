@@ -57,12 +57,16 @@
             <Button x:Name="addItemConfirm" Content="Add Item" Click="newItemConfirm" Margin="10" HorizontalAlignment="Center" Width="200" Height="50" Background="ForestGreen"/>
         </StackPanel>
         <StackPanel x:Name="addCollection" Orientation="Vertical" Visibility="Collapsed">
-            <TextBox x:Name="colName" Header="Enter Collection Name" PlaceholderText="Name" Width="300" HorizontalAlignment="Left" Margin="25"/>
+            <StackPanel Orientation="Horizontal" Visibility="Visible">
+                <TextBox x:Name="colName" Header="Enter Collection Name" PlaceholderText="Name" Width="300" HorizontalAlignment="Left" Margin="25"/>
+                <TextBlock x:Name="colRequiredField" Text="*required" Foreground="Red" Visibility="Collapsed"/>
+            </StackPanel>
             <TextBox x:Name="attText" Header="Enter an Attribute" PlaceholderText="Attribute" Width="200" HorizontalAlignment="Left" Margin="25"/>
             <StackPanel x:Name="attButs" Orientation="Horizontal" Visibility="Visible">
-                <Button x:Name="addAtt" Content="Add" Margin="10"/>
+                <Button x:Name="addAtt" Content="Add" Margin="10" Click="addAttribute"/>
                 <Button x:Name="subAtt" Content="Sub" Margin="10"/>
             </StackPanel>
+                <Button x:Name="addItemConfirmCol" Content="Add Item" Click="NewCollectionConfirm" Margin="10" HorizontalAlignment="Center" Width="200" Height="50" Background="ForestGreen"/>
         </StackPanel>
         <StackPanel x:Name="singleItemView" Orientation="Vertical" Visibility="Collapsed">
             <Image x:Name="singleItemImage" Width="200" Height="200" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="25"/>
