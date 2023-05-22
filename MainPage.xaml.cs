@@ -47,7 +47,7 @@ namespace collectionTest1
         // To change the active collection the refresh function should be ran
         // which will automatically update this variable and the items shown on the screen.
         // DO NOT MODIFY VALUE or the wrong collection will be displayed. JB
-        int activeCollection = 0;
+        int activeCollection = -1;
 
         //wantedItemAttributes wantedItems;
         int buttonCounter = 0;
@@ -95,7 +95,10 @@ namespace collectionTest1
         // When the "Condition" attribute is true, the textbox for "Condition" will be turned visible on the "Add item" page.
         public void newItemFunc(object sender, RoutedEventArgs e)
         {
-            changeScreen(screens.AddItem);
+            if (activeCollection != -1)
+            {
+                changeScreen(screens.AddItem);
+            }
                         
 
             // Toggle textboxes visible if attributes were selected when making collection
@@ -189,6 +192,11 @@ namespace collectionTest1
                 Grid.SetColumn(addButton, column + buttonCounter);
                 Grid.SetRow(addButton, row);
             }
+            else
+            {
+                itemRequiredField.Visibility = Visibility.Visible;
+                itemRequiredFieldDesc.Visibility = Visibility.Visible;
+            }
         }
 
         private void saveAddItem(Item newlyAddedItem)
@@ -273,7 +281,7 @@ namespace collectionTest1
                 colBut.Margin = new Thickness(10);
                 colBut.CornerRadius = new CornerRadius(10);
                 colBut.Click += collectionButtons;
-                colButs.Children.Insert(collectionList.Count - 1, colBut);
+                colButs.Children.Add(colBut);
             }
 
             // Add back 'add collection button'
