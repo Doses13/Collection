@@ -169,6 +169,15 @@ namespace collectionTest1
 
                     }
                 }
+                else
+                {
+                    bitmapImage.UriSource = new Uri("ms-appx:///Assets/placeHolder.png", UriKind.Absolute);
+                    addedItemImage.Source = bitmapImage;
+                    addedItemImage.Opacity = 0.5;
+                    addedItemImage.Width = 100;
+                    addedItemImage.Height = 100;
+                    addedItemImage.PointerPressed += AddedItemImage_PointerPressed;
+                }
 
                 // Add Button and image, shift "Add Item" button over
                // ItemGrid.Children.Add(addedItemButton);
