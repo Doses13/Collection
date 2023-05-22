@@ -79,10 +79,11 @@
                 <Button x:Name="addAtt" Content="Add" Margin="10" Click="addAttribute"/>
                 <Button x:Name="subAtt" Content="Sub" Margin="10"/>
             </StackPanel>
-                <Button x:Name="addItemConfirmCol" Content="Add Collection" Click="NewCollectionConfirm" Margin="10" HorizontalAlignment="Center" Width="200" Height="50" Background="ForestGreen"/>
-
+            <Button x:Name="addItemConfirmCol" Content="Add Collection" Click="NewCollectionConfirm" Margin="10" HorizontalAlignment="Center" Width="200" Height="50" Background="ForestGreen"/>
         </StackPanel>
+        
         <Grid x:Name="singleItemView" Visibility="Visible">
+            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -91,6 +92,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+            
             <StackPanel x:Name="nameDescPanel" Grid.Column="0" Orientation="Vertical" Visibility="Visible" HorizontalAlignment="Stretch">
                 <TextBox x:Name="singleViewName" Header="Name" PlaceholderText="" HorizontalAlignment="Stretch" Margin="20" Visibility="Visible" IsEnabled="False"/>
                 <TextBox x:Name="singleViewDescription" Header="Description" PlaceholderText="" Height="Auto" MinHeight="200" Margin="20" Visibility="Visible" HorizontalAlignment="Stretch" IsEnabled="False"/>
@@ -105,5 +107,6 @@
             </ScrollViewer>
             <Image x:Name="singleItemImage" Grid.Column="2" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="25"/>
         </Grid>
+        
     </StackPanel>
 </Page>
