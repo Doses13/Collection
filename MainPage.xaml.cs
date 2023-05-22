@@ -95,7 +95,10 @@ namespace collectionTest1
         // When the "Condition" attribute is true, the textbox for "Condition" will be turned visible on the "Add item" page.
         public void newItemFunc(object sender, RoutedEventArgs e)
         {
-            changeScreen(screens.AddItem);
+            if (activeCollection != -1)
+            {
+                changeScreen(screens.AddItem);
+            }
                         
 
             // Toggle textboxes visible if attributes were selected when making collection
