@@ -438,6 +438,39 @@ namespace collectionTest1
         {
             Application.Current.Exit();
         }
+
+        public void singleViewEditClick(object sender, RoutedEventArgs e)
+        {
+            singleViewToggleEditing();
+        }
+
+        public void singleViewSaveClick(object sender, RoutedEventArgs e)
+        {
+            singleViewToggleEditing();
+
+        }
+
+        //Single View Edit and Save Helper
+        private void singleViewToggleEditing()
+        {
+            singleViewName.IsEnabled = !singleViewName.IsEnabled;
+            singleViewDescription.IsEnabled = !singleViewDescription.IsEnabled;
+            foreach (TextBox attribute in attributePanel.Children)
+            {
+                attribute.IsEnabled = !attribute.IsEnabled;
+            }
+
+            if (editItem.Visibility == Visibility.Visible)
+            {
+                editItem.Visibility = Visibility.Collapsed;
+                saveItemChanges.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                editItem.Visibility = Visibility.Visible;
+                saveItemChanges.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }
 
