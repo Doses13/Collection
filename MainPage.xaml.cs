@@ -180,6 +180,11 @@ namespace collectionTest1
                 Grid.SetColumn(addButton, column + buttonCounter);
                 Grid.SetRow(addButton, row);
             }
+            else
+            {
+                itemRequiredField.Visibility = Visibility.Visible;
+                itemRequiredFieldDesc.Visibility = Visibility.Visible;
+            }
         }
 
         private void saveAddItem(Item newlyAddedItem)
