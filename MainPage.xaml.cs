@@ -47,7 +47,7 @@ namespace collectionTest1
         // To change the active collection the refresh function should be ran
         // which will automatically update this variable and the items shown on the screen.
         // DO NOT MODIFY VALUE or the wrong collection will be displayed. JB
-        int activeCollection = 0;
+        int activeCollection = -1;
 
         //wantedItemAttributes wantedItems;
         int buttonCounter = 0;
@@ -269,7 +269,7 @@ namespace collectionTest1
                 colBut.Margin = new Thickness(10);
                 colBut.CornerRadius = new CornerRadius(10);
                 colBut.Click += collectionButtons;
-                colButs.Children.Insert(collectionList.Count - 1, colBut);
+                colButs.Children.Add(colBut);
             }
 
             // Add back 'add collection button'
