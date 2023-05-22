@@ -98,6 +98,10 @@ namespace collectionTest1
             if (activeCollection != -1)
             {
                 changeScreen(screens.AddItem);
+                for (int i = 0; i < collectionList[activeCollection].attributes.Count; ++i)
+                {
+
+                }
             }
                         
 
