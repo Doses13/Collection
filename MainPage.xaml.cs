@@ -149,17 +149,17 @@ namespace collectionTest1
                 // Check if an additional column is needed
                 if (row == 0)
                 {
-                    ColumnDefinition col = new ColumnDefinition();
-                    col.Width = new GridLength(100, GridUnitType.Auto);
-                    ItemGrid.ColumnDefinitions.Add(col);
+                    RowDefinition rowDef = new RowDefinition();
+                    rowDef.Height = new GridLength(100, GridUnitType.Auto);
+                    ItemGrid.RowDefinitions.Add(rowDef);
                 }
 
                 // Check if item needs to go to next row 
                 if (buttonCounter < 6)
                 {
-                    RowDefinition rowDef = new RowDefinition();
-                    rowDef.Height = new GridLength(100, GridUnitType.Auto);
-                    ItemGrid.RowDefinitions.Add(rowDef);
+                    ColumnDefinition col = new ColumnDefinition();
+                    col.Width = new GridLength(100, GridUnitType.Auto);
+                    ItemGrid.ColumnDefinitions.Add(col);
                 }
 
                 Image addedItemImage = new Image();
@@ -203,8 +203,16 @@ namespace collectionTest1
                 Grid.SetRow(addedItemImage, row);
                 //Grid.SetColumn(addedItemButton, column);
                 //Grid.SetRow(addedItemButton, row);
-                Grid.SetColumn(addButton, column);
-                Grid.SetRow(addButton, row + buttonCounter);
+                if ((buttonCounter % 6) == 0)
+                {
+                    Grid.SetColumn(addButton, 0);
+                    Grid.SetRow(addButton, row);
+                }
+                else
+                {
+                    Grid.SetColumn(addButton, column + 1);
+                    Grid.SetRow(addButton, row);
+                }
             }
             else
             {
@@ -249,6 +257,7 @@ namespace collectionTest1
         // This function takes a parameter to choose what collection is the active collection. JB
         private void refresh(int collectionNumber)
         {
+            // remove items from grid 
             if (activeCollection >= 0)
             {
                 foreach(var item in collectionList[activeCollection].items)
@@ -267,7 +276,7 @@ namespace collectionTest1
             int count = 0;
 
 
-            // TODO: code for adding items to screen
+            // Populates the grid with the collection's items
             if (collectionNumber >= 0)
             {
 
@@ -414,17 +423,45 @@ namespace collectionTest1
 
         public void addAttribute(object sender, RoutedEventArgs e)
         {
-            if(attText.Text!=null || attText.Text=="")
+            if (attText.Text != null || attText.Text == "")
             {
                 collectionList.Last().attributes.Add(attText.Text);
                 attText.Text = "";
+
             }
         }
+
+        // adds textboxes for all attributes in the collection onto the Add Item page 
+        // Removing them (without removing the Name and Description textboxes) is a little bit harder
+        public void addAttributeToNewItemPage()
+        {
+            foreach (var attribute in collectionList[activeCollection].attributes)
+            {
+                TextBox textbox = new TextBox();
+                textbox.Name = attribute;
+                textbox.PlaceholderText = attribute;
+                textbox.Header = attribute;
+                textbox.Width = 150;
+                textbox.Height = 60;
+                addItemFields.Children.Add(textbox);
+            }
+        }
+
+
+        /*public void removeAttributeFromNewItemPage()
+        {
+            foreach (var textbox in addItemFields.Children)
+            {
+                addItemFields.Children.Remove(textbox);
+                i++;
+            }
+
+        }*/
 
         public void NewCollectionConfirm(object sender, RoutedEventArgs e)
         {
             if(!string.IsNullOrEmpty(colName.Text))
-            {
+            
                 collectionList.Last().name = colName.Text;
                 colName.Text = "";
                 attText.Text = "";

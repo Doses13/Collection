@@ -101,8 +101,6 @@
             </StackPanel>
             <ScrollViewer x:Name="attributeScroller" Height="860" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Grid.Column="1">
                 <StackPanel x:Name="attributePanel" Orientation="Vertical" Visibility="Visible">
-                    <TextBox x:Name="singleViewPrice" Header="Price" TextWrapping="Wrap" PlaceholderText="" Height="Auto" Width="Auto" Margin="20" Visibility="Visible" HorizontalAlignment="Stretch" IsEnabled="False"/>
-                    <TextBox x:Name="singleViewCondition" Header="Condition" PlaceholderText="" Height="Auto" Margin="20" Visibility="Visible" HorizontalAlignment="Stretch" IsEnabled="False"/>
                 </StackPanel>
             </ScrollViewer>
             <Image x:Name="singleItemImage" Grid.Column="2" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="25"/>
