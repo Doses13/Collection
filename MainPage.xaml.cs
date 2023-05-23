@@ -426,8 +426,9 @@ namespace collectionTest1
             if (attText.Text != null || attText.Text == "")
             {
                 collectionList.Last().attributes.Add(attText.Text);
-                TextBox newAttribute = new TextBox();
+                TextBlock newAttribute = new TextBlock();
                 newAttribute.Text = attText.Text;
+                newAttribute.Padding=new Thickness(15);
                 newAttribute.Margin = new Thickness(10);
                 collectionAttributeView.Children.Add(newAttribute);
                 attText.Text = "";
