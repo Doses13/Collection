@@ -300,14 +300,16 @@ namespace collectionTest1
 
                 foreach (var item in collectionList[activeCollection].items)
                 {
-                    int column = count / 6;
-                    int row = count % 6;
-                    Grid.SetColumn(addButton, column);
-                    Grid.SetRow(addButton, row + count);
                     ItemGrid.Children.Add(item.image);
+                    int column = count % 6;
+                    int row = count / 6;
                     Grid.SetColumn(item.image, column);
                     Grid.SetRow(item.image, row);
                     count++;
+                    column = count % 6;
+                    row = count / 6;
+                    Grid.SetColumn(addButton, column);
+                    Grid.SetRow(addButton, row);
                 }
             }
 
@@ -342,6 +344,7 @@ namespace collectionTest1
         // Returns 1 if the requested screen change is invalid
         private int changeScreen(screens screen)
         {
+            refresh(activeCollection);
             if(currentScreen == screens.Home && screen == screens.AddItem) // Home -> Add Item
             {
                 Home.Visibility = Visibility.Collapsed;
