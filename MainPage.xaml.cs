@@ -52,6 +52,8 @@ namespace collectionTest1
         //wantedItemAttributes wantedItems;
         int buttonCounter = 0;
 
+        List<string> imageToItem = new List<string>();
+
         Windows.Storage.StorageFile file;
 
 
@@ -128,11 +130,15 @@ namespace collectionTest1
             if (!string.IsNullOrEmpty(addItemName.Text) && !string.IsNullOrEmpty(addItemDescription.Text))
             {
                 BitmapImage bitmapImage = new BitmapImage();
+                Item newlyCreatedItem = new Item();
+
                 /*for (int i = 0; i < collectionList[activeCollection].attributes.Count(); i++)
                 {
                     TextBox textBox = new TextBox();
                 }*/
 
+                singleViewName.Text = addItemName.Text;
+                
                 changeScreen(screens.Home);
 
                 // Calculate where this button should go on the grid
@@ -156,12 +162,6 @@ namespace collectionTest1
                     ItemGrid.RowDefinitions.Add(rowDef);
                 }
 
-                // Button and image created from user's input 
-                /*Button addedItemButton = new Button();
-                addedItemButton.Content = addItemName.Text;
-                addedItemButton.VerticalContentAlignment = VerticalAlignment.Bottom;
-                gridButtonList.Add(addedItemButton);*/
-
                 Image addedItemImage = new Image();
                 // Convert image to bitmapImage to use with grid
                 if (file != null)
@@ -174,6 +174,7 @@ namespace collectionTest1
                         addedItemImage.Width = 100;
                         addedItemImage.Height = 100;
                         addedItemImage.PointerPressed += AddedItemImage_PointerPressed;
+                        newlyCreatedItem.image = addedItemImage;
 
                     }
                 }
@@ -185,10 +186,18 @@ namespace collectionTest1
                     addedItemImage.Width = 100;
                     addedItemImage.Height = 100;
                     addedItemImage.PointerPressed += AddedItemImage_PointerPressed;
+                    newlyCreatedItem.image = addedItemImage;
+                    //collectionList[activeCollection].items[collectionList[activeCollection].items.Count() + 1].image = addedItemImage; 
                 }
 
+                newlyCreatedItem.name = addItemName.Text;
+                newlyCreatedItem.description = addItemDescription.Text;
+                addItemName.Text = "";
+                addItemDescription.Text = "";
+                collectionList[activeCollection].items.Add(newlyCreatedItem);
                 // Add Button and image, shift "Add Item" button over
-               // ItemGrid.Children.Add(addedItemButton);
+         
+
                 ItemGrid.Children.Add(addedItemImage);
                 Grid.SetColumn(addedItemImage, column);
                 Grid.SetRow(addedItemImage, row);
@@ -220,15 +229,10 @@ namespace collectionTest1
         private void AddedItemImage_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             changeScreen(screens.Single);
-
-            // Item tempItem = new Item();
-            //tempItem.name = addItemName.Text;
-            //tempItem.description = addItemDescription.Text;
-            //tempItem.image.Source = (sender as Image).Source;
-            // saveAddItem(tempItem);
-            
+            Item item = collectionList[activeCollection].items.Find(x => x.image == (sender as Image));
+            singleViewName.Text = item.name;
+            singleViewDescription.Text = item.description;
             singleItemImage.Source = (sender as Image).Source;
-            // Copies the text that user inputted whren creating the item  
         }
 
 

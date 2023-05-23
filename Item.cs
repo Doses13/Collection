@@ -11,7 +11,7 @@ namespace collectionTest1
     {
         public string name;
         public string description;
-        public Image image;
+        public Image image { get; set; }
         public List<string> attributes = new List<string>();
     }
 }
