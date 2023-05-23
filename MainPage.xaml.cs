@@ -58,7 +58,7 @@ namespace collectionTest1
         //Navigation Variables
         screens currentScreen = screens.Home; //Home screen
 
-        BitmapImage bitmapImage = new BitmapImage();
+       
 
 
         public MainPage()
@@ -127,6 +127,7 @@ namespace collectionTest1
         {
             if (!string.IsNullOrEmpty(addItemName.Text) && !string.IsNullOrEmpty(addItemDescription.Text))
             {
+                BitmapImage bitmapImage = new BitmapImage();
                 /*for (int i = 0; i < collectionList[activeCollection].attributes.Count(); i++)
                 {
                     TextBox textBox = new TextBox();
@@ -220,12 +221,13 @@ namespace collectionTest1
         {
             changeScreen(screens.Single);
 
-            Item tempItem = new Item();
-            tempItem.name = addItemName.Text;
-            tempItem.description = addItemDescription.Text;
-            tempItem.image.Source = bitmapImage;
-            saveAddItem(tempItem);
-
+            // Item tempItem = new Item();
+            //tempItem.name = addItemName.Text;
+            //tempItem.description = addItemDescription.Text;
+            //tempItem.image.Source = (sender as Image).Source;
+            // saveAddItem(tempItem);
+            
+            singleItemImage.Source = (sender as Image).Source;
             // Copies the text that user inputted whren creating the item  
         }
 
