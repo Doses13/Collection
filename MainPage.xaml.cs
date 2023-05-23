@@ -452,6 +452,16 @@ namespace collectionTest1
             }
         }
 
+        public void subAttribute(object sender, RoutedEventArgs e)
+        {
+            if (collectionList.Last().attributes.Count > 0)
+            {
+                collectionList.Last().attributes.Remove(collectionList.Last().attributes.Last());
+                collectionAttributeView.Children.Remove(collectionAttributeView.Children.Last());
+                attText.Text = "";
+            }
+        }
+
         // adds textboxes for all attributes in the collection onto the Add Item page 
         // Removing them (without removing the Name and Description textboxes) is a little bit harder
         public void addAttributeToNewItemPage()
