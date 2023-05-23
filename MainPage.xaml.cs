@@ -226,10 +226,27 @@ namespace collectionTest1
         private void AddedItemImage_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             changeScreen(screens.Single);
-            Item item = collectionList[activeCollection].items.Find(x => x.image == (sender as Image));
-            singleViewName.Text = item.name;
-            singleViewDescription.Text = item.description;
+            curItem = collectionList[activeCollection].items.Find(x => x.image == (sender as Image));
+            singleViewName.Text = curItem.name;
+            singleViewDescription.Text = curItem.description;
             singleItemImage.Source = (sender as Image).Source;
+
+            for(int i = 0; i < collectionList[activeCollection].attributes.Count; i++)
+            {
+                TextBox attributeTextBox = new TextBox();
+                attributeTextBox.Header = collectionList[activeCollection].attributes[i];
+                attributeTextBox.PlaceholderText = curItem.attributes[i];
+
+                //attributeTextBox.Height = Auto;
+                //attributeTextBox.Width = Auto;
+
+                attributeTextBox.Margin = new Thickness(20);
+                attributeTextBox.HorizontalAlignment = HorizontalAlignment.Stretch;
+                attributeTextBox.IsEnabled = false;
+
+                attributePanel.Children.Add(attributeTextBox);
+            }
+
         }
 
 
@@ -427,8 +444,9 @@ namespace collectionTest1
             if (attText.Text != null || attText.Text == "")
             {
                 collectionList.Last().attributes.Add(attText.Text);
-                TextBox newAttribute = new TextBox();
+                TextBlock newAttribute = new TextBlock();
                 newAttribute.Text = attText.Text;
+                newAttribute.Padding=new Thickness(15);
                 newAttribute.Margin = new Thickness(10);
                 collectionAttributeView.Children.Add(newAttribute);
                 attText.Text = "";
@@ -480,6 +498,7 @@ namespace collectionTest1
         {
             if(!string.IsNullOrEmpty(colName.Text))
             { 
+            
                 collectionList.Last().name = colName.Text;
                 colName.Text = "";
                 attText.Text = "";
@@ -538,9 +557,18 @@ namespace collectionTest1
             singleViewToggleEditing();
         }
 
+        Item curItem = null;
+
         public void singleViewSaveClick(object sender, RoutedEventArgs e)
         {
             singleViewToggleEditing();
+            curItem.name = singleViewName.Text;
+            curItem.description = singleViewDescription.Text;
+
+            foreach (string attribute in curItem.attributes)
+            {
+                //Need to be able to update attributes
+            }
 
         }
 
