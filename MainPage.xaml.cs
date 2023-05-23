@@ -426,8 +426,11 @@ namespace collectionTest1
             if (attText.Text != null || attText.Text == "")
             {
                 collectionList.Last().attributes.Add(attText.Text);
+                TextBox newAttribute = new TextBox();
+                newAttribute.Text = attText.Text;
+                newAttribute.Margin = new Thickness(10);
+                collectionAttributeView.Children.Add(newAttribute);
                 attText.Text = "";
-
             }
         }
 

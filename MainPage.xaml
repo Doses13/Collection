@@ -78,7 +78,7 @@
                 </StackPanel>
                 <Button x:Name="addColConfirm" Content="Add Collection" Click="NewCollectionConfirm" Margin="10" HorizontalAlignment="Center" Width="200" Height="50" Background="ForestGreen"/>
             </StackPanel>
-            <ScrollViewer x:Name="collectionAttributeView" Height="860" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled"/>
+            <StackPanel x:Name="collectionAttributeView"/>
         </StackPanel>
        
         <Grid x:Name="singleItemView" Visibility="Visible">
