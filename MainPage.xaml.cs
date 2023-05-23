@@ -129,6 +129,7 @@ namespace collectionTest1
         {
             if (!string.IsNullOrEmpty(addItemName.Text) && !string.IsNullOrEmpty(addItemDescription.Text))
             {
+                addAttributeToNewItemPage();
                 BitmapImage bitmapImage = new BitmapImage();
                 Item newlyCreatedItem = new Item();
 
@@ -460,6 +461,20 @@ namespace collectionTest1
             }
 
         }*/
+
+        public void removeAttributeFromNewItemPage()
+        {
+            foreach (var attribute in collectionList[activeCollection].attributes)
+            {
+                foreach (var element in addItem.Children)
+                {
+                    if ((element as TextBox).Name == attribute)
+                    {
+                        addItem.Children.Remove(element);
+                    }
+                }
+            }
+        }
 
         public void NewCollectionConfirm(object sender, RoutedEventArgs e)
         {
