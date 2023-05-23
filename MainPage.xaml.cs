@@ -461,7 +461,7 @@ namespace collectionTest1
         public void NewCollectionConfirm(object sender, RoutedEventArgs e)
         {
             if(!string.IsNullOrEmpty(colName.Text))
-            
+            { 
                 collectionList.Last().name = colName.Text;
                 colName.Text = "";
                 attText.Text = "";
