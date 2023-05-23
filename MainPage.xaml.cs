@@ -155,7 +155,7 @@ namespace collectionTest1
                 }
 
                 // Check if item needs to go to next row 
-                if (buttonCounter < 8)
+                if (buttonCounter < 6)
                 {
                     RowDefinition rowDef = new RowDefinition();
                     rowDef.Height = new GridLength(100, GridUnitType.Auto);
@@ -203,26 +203,14 @@ namespace collectionTest1
                 Grid.SetRow(addedItemImage, row);
                 //Grid.SetColumn(addedItemButton, column);
                 //Grid.SetRow(addedItemButton, row);
-                Grid.SetColumn(addButton, column + buttonCounter);
-                Grid.SetRow(addButton, row);
+                Grid.SetColumn(addButton, column);
+                Grid.SetRow(addButton, row + buttonCounter);
             }
             else
             {
                 itemRequiredField.Visibility = Visibility.Visible;
                 itemRequiredFieldDesc.Visibility = Visibility.Visible;
             }
-        }
-
-        private void saveAddItem(Item newlyAddedItem)
-        {
-            List<Item> items = new List<Item>();
-            for(int i = 0; i < collectionList[activeCollection].items.Count(); i++)
-            {
-                items.Add(collectionList[activeCollection].items[i]);
-            }
-
-            items.Add(newlyAddedItem);
-            collectionList[activeCollection].items = items;
         }
 
         // Event handler for when user clicks on an image of an item in the collection
@@ -261,22 +249,46 @@ namespace collectionTest1
         // This function takes a parameter to choose what collection is the active collection. JB
         private void refresh(int collectionNumber)
         {
+            if (activeCollection >= 0)
+            {
+                foreach(var item in collectionList[activeCollection].items)
+                {
+                    ItemGrid.Children.Remove(item.image);
+                }
+            }
             activeCollection = collectionNumber; // Change active collection
-            
+
             // Manage displaying of items
 
             // Remove all current items from screen
-            // TODO: code to remove all items from screen
 
             // Add new items
 
+            int count = 0;
+
+
             // TODO: code for adding items to screen
-            
+            if (collectionNumber >= 0)
+            {
 
-            // Update collections displayed on left
+                foreach (var item in collectionList[activeCollection].items)
+                {
+                    int column = count / 6;
+                    int row = count % 6;
+                    Grid.SetColumn(addButton, column);
+                    Grid.SetRow(addButton, row + count);
+                    ItemGrid.Children.Add(item.image);
+                    Grid.SetColumn(item.image, column);
+                    Grid.SetRow(item.image, row);
+                    count++;
+                }
+            }
 
-            // Save add collection button
-            Button addColBut = (Button)colButs.Children.Last();
+
+                // Update collections displayed on left
+
+                // Save add collection button
+                Button addColBut = (Button)colButs.Children.Last();
 
             // Remove existing colleciton buttons
             colButs.Children.Clear();
