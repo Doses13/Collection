@@ -63,25 +63,24 @@
                 <Button x:Name="addItemConfirm" Content="Add Item" Click="newItemConfirm" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="200" Height="50" Background="ForestGreen"/>
             </StackPanel>
             <StackPanel Width="150"/>
-            <ScrollViewer x:Name="attributeSpace">
-                <TextBlock>
-                    this is a block
-                </TextBlock>
-            </ScrollViewer>
+            <ScrollViewer x:Name="attributeSpace" Height="860" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled"/>
         </StackPanel>
-        <StackPanel x:Name="addCollection" Orientation="Vertical" Visibility="Collapsed">
-            <StackPanel Orientation="Horizontal" Visibility="Visible">
-                <TextBox x:Name="colName" Header="Enter Collection Name" PlaceholderText="Name" Width="300" HorizontalAlignment="Left" Margin="25"/>
-                <TextBlock x:Name="colRequiredField" Text="*required" Foreground="Red" Visibility="Collapsed"/>
+        <StackPanel x:Name="addCollection" Orientation="Horizontal" Visibility="Collapsed">
+            <StackPanel x:Name="collectionStuff" Orientation="Vertical" Visibility="Visible">
+                <StackPanel Orientation="Horizontal" Visibility="Visible">
+                    <TextBox x:Name="colName" Header="Enter Collection Name" PlaceholderText="Name" Width="300" HorizontalAlignment="Left" Margin="25"/>
+                    <TextBlock x:Name="colRequiredField" Text="*required" Foreground="Red" Visibility="Collapsed"/>
+                </StackPanel>
+                <TextBox x:Name="attText" Header="Enter an Attribute" PlaceholderText="Attribute" Width="200" HorizontalAlignment="Left" Margin="25"/>
+                <StackPanel x:Name="attButs" Orientation="Horizontal" Visibility="Visible">
+                    <Button x:Name="addAtt" Content="Add" Margin="10" Click="addAttribute"/>
+                    <Button x:Name="subAtt" Content="Sub" Margin="10"/>
+                </StackPanel>
+                <Button x:Name="addColConfirm" Content="Add Collection" Click="NewCollectionConfirm" Margin="10" HorizontalAlignment="Center" Width="200" Height="50" Background="ForestGreen"/>
             </StackPanel>
-            <TextBox x:Name="attText" Header="Enter an Attribute" PlaceholderText="Attribute" Width="200" HorizontalAlignment="Left" Margin="25"/>
-            <StackPanel x:Name="attButs" Orientation="Horizontal" Visibility="Visible">
-                <Button x:Name="addAtt" Content="Add" Margin="10" Click="addAttribute"/>
-                <Button x:Name="subAtt" Content="Sub" Margin="10"/>
-            </StackPanel>
-            <Button x:Name="addItemConfirmCol" Content="Add Collection" Click="NewCollectionConfirm" Margin="10" HorizontalAlignment="Center" Width="200" Height="50" Background="ForestGreen"/>
+            <StackPanel x:Name="collectionAttributeView"/>
         </StackPanel>
-        
+       
         <Grid x:Name="singleItemView" Visibility="Visible">
             
             <Grid.ColumnDefinitions>
@@ -99,9 +98,9 @@
                 <Button x:Name="saveItemChanges" Content="Save Changes" Visibility="Collapsed" HorizontalAlignment="Left" Margin="20" Click="singleViewSaveClick"/>
                 <Button x:Name="editItem" Content="Edit Item" Visibility="Visible" HorizontalAlignment="Left" Margin="20" Click="singleViewEditClick"/>
             </StackPanel>
+            <StackPanel Width="150"/> 
             <ScrollViewer x:Name="attributeScroller" Height="860" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Grid.Column="1">
-                <StackPanel x:Name="attributePanel" Orientation="Vertical" Visibility="Visible">
-                </StackPanel>
+                <StackPanel x:Name="attributePanel" Orientation="Vertical" Visibility="Visible"/>
             </ScrollViewer>
             <Image x:Name="singleItemImage" Grid.Column="2" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="25"/>
         </Grid>
