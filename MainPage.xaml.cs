@@ -220,6 +220,7 @@ namespace collectionTest1
                 itemRequiredField.Visibility = Visibility.Visible;
                 itemRequiredFieldDesc.Visibility = Visibility.Visible;
             }
+            refresh(activeCollection);
         }
 
         // Event handler for when user clicks on an image of an item in the collection
@@ -292,32 +293,32 @@ namespace collectionTest1
             // Add new items
 
             int count = 0;
-
+            int column = 0;
+            int row = 0;
 
             // Populates the grid with the collection's items
             if (collectionNumber >= 0)
             {
-
                 foreach (var item in collectionList[activeCollection].items)
                 {
                     ItemGrid.Children.Add(item.image);
-                    int column = count % 6;
-                    int row = count / 6;
+                    column = count % 6;
+                    row = count / 6;
                     Grid.SetColumn(item.image, column);
                     Grid.SetRow(item.image, row);
                     count++;
-                    column = count % 6;
-                    row = count / 6;
-                    Grid.SetColumn(addButton, column);
-                    Grid.SetRow(addButton, row);
                 }
             }
+            column = count % 6;
+            row = count / 6;
+            Grid.SetColumn(addButton, column);
+            Grid.SetRow(addButton, row);
 
 
-                // Update collections displayed on left
+            // Update collections displayed on left
 
-                // Save add collection button
-                Button addColBut = (Button)colButs.Children.Last();
+            // Save add collection button
+            Button addColBut = (Button)colButs.Children.Last();
 
             // Remove existing colleciton buttons
             colButs.Children.Clear();
@@ -435,6 +436,7 @@ namespace collectionTest1
             // to whoever is working on this make sure that collections have unique names pls. JB
             collection = new Collection();
             collectionList.Add(collection);
+            refresh(activeCollection);
         }
 
         private void resize(object sender, SizeChangedEventArgs e)
@@ -516,7 +518,7 @@ namespace collectionTest1
                 colName.Text = "";
                 attText.Text = "";
                 changeScreen(screens.Home);
-                refresh(activeCollection + 1);
+                refresh(collectionList.Count - 1);
             }
             else 
             { 

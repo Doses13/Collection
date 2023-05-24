@@ -17,7 +17,7 @@
                     <MenuFlyoutItem Text="Exit" Click="clickExit"/>
                 </MenuBarItem>
                 <MenuBarItem Title="Edit">
-                    <MenuFlyoutItem Text="Add Item"/>
+                    <MenuFlyoutItem Text="Add Item" Click="newItemFunc"/>
                     <MenuFlyoutItem Text="Clear Collection"/>
                 </MenuBarItem>
                 <MenuBarItem Title="Help">
@@ -33,7 +33,7 @@
                         <Button x:Name="colButton" Margin="10" Width="200" Height="50" CornerRadius="10" Click="NewCollectionFunc">New Collection (+)</Button>
                     </StackPanel>
                 </ScrollViewer>
-                <Grid x:Name="ItemGrid" Width="500" ColumnSpacing="25" RowSpacing="25">
+                <Grid x:Name="ItemGrid" Width="800" ColumnSpacing="25" RowSpacing="25">
                     <!--item view--> 
                     
                     <Grid.ColumnDefinitions>
