@@ -373,6 +373,10 @@ namespace collectionTest1
                 colBut.Margin = new Thickness(10);
                 colBut.CornerRadius = new CornerRadius(10);
                 colBut.Click += collectionButtons;
+                if(i == activeCollection)
+                {
+                    colBut.Background = new SolidColorBrush(Colors.DarkCyan);
+                }
                 colButs.Children.Add(colBut);
             }
 

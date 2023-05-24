@@ -30,7 +30,7 @@
             <StackPanel x:Name="Home" Orientation="Horizontal">
                 <ScrollViewer>
                     <StackPanel x:Name="colButs" Background="#303030" Orientation="Vertical">
-                        <Button x:Name="colButton" Margin="10" Width="200" Height="50" CornerRadius="10" Click="NewCollectionFunc">New Collection (+)</Button>
+                        <Button x:Name="colButton" Margin="10" Width="200" Height="50" CornerRadius="10" Click="NewCollectionFunc" Background="Green">New Collection (+)</Button>
                     </StackPanel>
                 </ScrollViewer>
                 <Grid x:Name="ItemGrid" Width="800" ColumnSpacing="25" RowSpacing="25">
@@ -42,10 +42,8 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100"/>
                     </Grid.RowDefinitions>
-                    <Button x:Name="addButton" Click="newItemFunc" Height="100" Width="100" HorizontalAlignment="Center">
-                        <TextBlock Text="Add Item (+)" />
-                    </Button>
-                   
+                    <Button x:Name="addButton" Click="newItemFunc" Height="100" Width="100" Content="Add Item (+)" Background="Green" HorizontalAlignment="Center"/>
+
                 </Grid>
             </StackPanel>
         </StackPanel>
