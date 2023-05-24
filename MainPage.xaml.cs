@@ -100,6 +100,8 @@ namespace collectionTest1
         {
             if (activeCollection != -1)
             {
+                addItemAttributePanel.Children.Clear();
+
                 changeScreen(screens.AddItem);
                 for (int i = 0; i < collectionList[activeCollection].attributes.Count; i++)
                 {
