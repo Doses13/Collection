@@ -40,10 +40,6 @@ namespace collectionTest1
         // Gui items should only be added for collections and items present in it. JB    
         List<Collection> collectionList = new List<Collection>();
 
-        //This is a temp collection that will get called new whenever we need to create
-        //a new collection. CK
-        Collection collection;
-
         // This variable stores the active collection i.e. the collection whos items are
         // being shown on the screen.
         // To change the active collection the refresh function should be ran
@@ -373,6 +369,10 @@ namespace collectionTest1
                 colBut.Margin = new Thickness(10);
                 colBut.CornerRadius = new CornerRadius(10);
                 colBut.Click += collectionButtons;
+                if(i == activeCollection)
+                {
+                    colBut.Background = new SolidColorBrush(Colors.DarkCyan);
+                }
                 colButs.Children.Add(colBut);
             }
 
@@ -450,7 +450,6 @@ namespace collectionTest1
                 currentScreen = screens.Home;
                 return 0;
             }
-
             return 1;
         }
 
@@ -477,12 +476,7 @@ namespace collectionTest1
         public void NewCollectionFunc(object sender, RoutedEventArgs e)
         {
             changeScreen(screens.AddCol);
-
             collectionAttributeView.Children.Clear();
-
-            // to whoever is working on this make sure that collections have unique names pls. JB
-            collection = new Collection();
-            collectionList.Add(collection);
             refresh(activeCollection);
         }
 
@@ -558,9 +552,11 @@ namespace collectionTest1
 
         public void NewCollectionConfirm(object sender, RoutedEventArgs e)
         {
-            if(!string.IsNullOrEmpty(colName.Text))
-            { 
             
+
+            if (!string.IsNullOrEmpty(colName.Text))
+            {
+                collectionList.Add(new Collection());
                 collectionList.Last().name = colName.Text;
                 colName.Text = "";
                 attText.Text = "";
