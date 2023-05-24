@@ -406,7 +406,6 @@ namespace collectionTest1
                 currentScreen = screens.Home;
                 return 0;
             }
-
             return 1;
         }
 
