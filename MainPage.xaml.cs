@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 using Windows.Storage;
 using System.Security.Authentication;
+using System.IO.Pipes;
 
 // Joseph made this comment
 
@@ -97,20 +98,21 @@ namespace collectionTest1
         // If the user selects that they want the "Condition" attribute for this collection, the "Condition" variable in "WantedItemAttributes" will be turned true
         // When the "Condition" attribute is true, the textbox for "Condition" will be turned visible on the "Add item" page.
         public void newItemFunc(object sender, RoutedEventArgs e)
-        {
+        { 
             if (activeCollection != -1)
             {
+
+                BitmapImage defualtImg = new BitmapImage();
+                defualtImg.UriSource = new Uri("ms-appx:///Assets/placeHolder.png", UriKind.Absolute);
+
                 addItemAttributePanel.Children.Clear();
+                itemImage.Source = defualtImg;
 
                 changeScreen(screens.AddItem);
                 for (int i = 0; i < collectionList[activeCollection].attributes.Count; i++)
                 {
                     TextBox attributeTextBox = new TextBox();
                     attributeTextBox.Header = collectionList[activeCollection].attributes[i];
-                    //attributeTextBox.PlaceholderText = curItem.attributes[i];
-
-                    //attributeTextBox.Height = Auto;
-                    //attributeTextBox.Width = Auto;
 
                     attributeTextBox.Margin = new Thickness(20);
                     attributeTextBox.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -191,6 +193,7 @@ namespace collectionTest1
                         addedItemImage.PointerPressed += AddedItemImage_PointerPressed;
                         newlyCreatedItem.image = addedItemImage;
 
+                        file = null;
                     }
                 }
                 else
@@ -243,7 +246,7 @@ namespace collectionTest1
                 itemRequiredFieldDesc.Visibility = Visibility.Visible;
             }
 
-
+            refresh(activeCollection);
 
         }
 
@@ -292,6 +295,19 @@ namespace collectionTest1
             picker.FileTypeFilter.Add(".png");
 
             file = await picker.PickSingleFileAsync();
+
+            BitmapImage bitmapImage = new BitmapImage();
+
+            if (file != null)
+            {
+                using (IRandomAccessStream fileStream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
+                {
+
+                    await bitmapImage.SetSourceAsync(fileStream);
+
+                    itemImage.Source = bitmapImage;
+                }
+            }
         }
 
         // This function will display a particular collections items on the screen.
