@@ -40,6 +40,8 @@ namespace collectionTest1
         // Gui items should only be added for collections and items present in it. JB    
         List<Collection> collectionList = new List<Collection>();
 
+        Collection tempCollection;
+
         // This variable stores the active collection i.e. the collection whos items are
         // being shown on the screen.
         // To change the active collection the refresh function should be ran
@@ -477,6 +479,7 @@ namespace collectionTest1
         {
             changeScreen(screens.AddCol);
             collectionAttributeView.Children.Clear();
+            tempCollection = new Collection();
             refresh(activeCollection);
         }
 
@@ -489,7 +492,7 @@ namespace collectionTest1
         {
             if (attText.Text != null || attText.Text == "")
             {
-                collectionList.Last().attributes.Add(attText.Text);
+                tempCollection.attributes.Add(attText.Text);
                 TextBlock newAttribute = new TextBlock();
                 newAttribute.Text = attText.Text;
                 newAttribute.Padding=new Thickness(15);
@@ -501,9 +504,9 @@ namespace collectionTest1
 
         public void subAttribute(object sender, RoutedEventArgs e)
         {
-            if (collectionList.Last().attributes.Count > 0)
+            if (tempCollection.attributes.Count > 0)
             {
-                collectionList.Last().attributes.Remove(collectionList.Last().attributes.Last());
+                tempCollection.attributes.Remove(collectionList.Last().attributes.Last());
                 collectionAttributeView.Children.Remove(collectionAttributeView.Children.Last());
                 attText.Text = "";
             }
@@ -552,11 +555,9 @@ namespace collectionTest1
 
         public void NewCollectionConfirm(object sender, RoutedEventArgs e)
         {
-            
-
             if (!string.IsNullOrEmpty(colName.Text))
             {
-                collectionList.Add(new Collection());
+                collectionList.Add(tempCollection);
                 collectionList.Last().name = colName.Text;
                 colName.Text = "";
                 attText.Text = "";
