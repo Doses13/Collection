@@ -19,6 +19,8 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 using Windows.Storage;
+using System.Security.Authentication;
+using System.IO.Pipes;
 
 // Joseph made this comment
 
@@ -96,13 +98,27 @@ namespace collectionTest1
         // If the user selects that they want the "Condition" attribute for this collection, the "Condition" variable in "WantedItemAttributes" will be turned true
         // When the "Condition" attribute is true, the textbox for "Condition" will be turned visible on the "Add item" page.
         public void newItemFunc(object sender, RoutedEventArgs e)
-        {
+        { 
             if (activeCollection != -1)
             {
-                changeScreen(screens.AddItem);
-                for (int i = 0; i < collectionList[activeCollection].attributes.Count; ++i)
-                {
 
+                BitmapImage defualtImg = new BitmapImage();
+                defualtImg.UriSource = new Uri("ms-appx:///Assets/placeHolder.png", UriKind.Absolute);
+
+                addItemAttributePanel.Children.Clear();
+                itemImage.Source = defualtImg;
+
+                changeScreen(screens.AddItem);
+                for (int i = 0; i < collectionList[activeCollection].attributes.Count; i++)
+                {
+                    TextBox attributeTextBox = new TextBox();
+                    attributeTextBox.Header = collectionList[activeCollection].attributes[i];
+
+                    attributeTextBox.Margin = new Thickness(20);
+                    attributeTextBox.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    attributeTextBox.IsEnabled = true;
+                    
+                    addItemAttributePanel.Children.Add(attributeTextBox);
                 }
             }
                         
@@ -129,7 +145,7 @@ namespace collectionTest1
         {
             if (!string.IsNullOrEmpty(addItemName.Text) && !string.IsNullOrEmpty(addItemDescription.Text))
             {
-                addAttributeToNewItemPage();
+                //addAttributeToNewItemPage();
                 BitmapImage bitmapImage = new BitmapImage();
                 Item newlyCreatedItem = new Item();
 
@@ -177,6 +193,7 @@ namespace collectionTest1
                         addedItemImage.PointerPressed += AddedItemImage_PointerPressed;
                         newlyCreatedItem.image = addedItemImage;
 
+                        file = null;
                     }
                 }
                 else
@@ -196,8 +213,16 @@ namespace collectionTest1
                 addItemName.Text = "";
                 addItemDescription.Text = "";
                 collectionList[activeCollection].items.Add(newlyCreatedItem);
+
+                foreach (TextBox attributeBox in addItemAttributePanel.Children)
+                {
+                    newlyCreatedItem.attributes.Add(attributeBox.Text);
+                }
+
+                addItemAttributePanel.Children.Clear();
+
                 // Add Button and image, shift "Add Item" button over
-         
+
 
                 ItemGrid.Children.Add(addedItemImage);
                 Grid.SetColumn(addedItemImage, column);
@@ -220,6 +245,9 @@ namespace collectionTest1
                 itemRequiredField.Visibility = Visibility.Visible;
                 itemRequiredFieldDesc.Visibility = Visibility.Visible;
             }
+
+            refresh(activeCollection);
+
         }
 
         // Event handler for when user clicks on an image of an item in the collection
@@ -267,6 +295,19 @@ namespace collectionTest1
             picker.FileTypeFilter.Add(".png");
 
             file = await picker.PickSingleFileAsync();
+
+            BitmapImage bitmapImage = new BitmapImage();
+
+            if (file != null)
+            {
+                using (IRandomAccessStream fileStream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
+                {
+
+                    await bitmapImage.SetSourceAsync(fileStream);
+
+                    itemImage.Source = bitmapImage;
+                }
+            }
         }
 
         // This function will display a particular collections items on the screen.
@@ -292,30 +333,32 @@ namespace collectionTest1
             // Add new items
 
             int count = 0;
-
+            int column = 0;
+            int row = 0;
 
             // Populates the grid with the collection's items
             if (collectionNumber >= 0)
             {
-
                 foreach (var item in collectionList[activeCollection].items)
                 {
-                    int column = count / 6;
-                    int row = count % 6;
-                    Grid.SetColumn(addButton, column);
-                    Grid.SetRow(addButton, row + count);
                     ItemGrid.Children.Add(item.image);
+                    column = count % 6;
+                    row = count / 6;
                     Grid.SetColumn(item.image, column);
                     Grid.SetRow(item.image, row);
                     count++;
                 }
             }
+            column = count % 6;
+            row = count / 6;
+            Grid.SetColumn(addButton, column);
+            Grid.SetRow(addButton, row);
 
 
-                // Update collections displayed on left
+            // Update collections displayed on left
 
-                // Save add collection button
-                Button addColBut = (Button)colButs.Children.Last();
+            // Save add collection button
+            Button addColBut = (Button)colButs.Children.Last();
 
             // Remove existing colleciton buttons
             colButs.Children.Clear();
@@ -342,6 +385,7 @@ namespace collectionTest1
         // Returns 1 if the requested screen change is invalid
         private int changeScreen(screens screen)
         {
+            refresh(activeCollection);
             if(currentScreen == screens.Home && screen == screens.AddItem) // Home -> Add Item
             {
                 Home.Visibility = Visibility.Collapsed;
@@ -411,6 +455,10 @@ namespace collectionTest1
 
         private void backButtonPress(object sender, RoutedEventArgs e)
         {
+            if (currentScreen == screens.Single || currentScreen == screens.AddItem)
+            {
+                attributePanel.Children.Clear();
+            }
             changeScreen(screens.Home);
         }
 
@@ -428,9 +476,13 @@ namespace collectionTest1
         public void NewCollectionFunc(object sender, RoutedEventArgs e)
         {
             changeScreen(screens.AddCol);
+
+            collectionAttributeView.Children.Clear();
+
             // to whoever is working on this make sure that collections have unique names pls. JB
             collection = new Collection();
             collectionList.Add(collection);
+            refresh(activeCollection);
         }
 
         private void resize(object sender, SizeChangedEventArgs e)
@@ -512,7 +564,7 @@ namespace collectionTest1
                 colName.Text = "";
                 attText.Text = "";
                 changeScreen(screens.Home);
-                refresh(activeCollection + 1);
+                refresh(collectionList.Count - 1);
             }
             else 
             { 
@@ -574,9 +626,12 @@ namespace collectionTest1
             curItem.name = singleViewName.Text;
             curItem.description = singleViewDescription.Text;
 
-            foreach (string attribute in curItem.attributes)
+            int i = 0;
+
+            foreach (TextBox attributeBox in attributePanel.Children)
             {
-                //Need to be able to update attributes
+                curItem.attributes[i] = attributeBox.Text;
+                i++;
             }
 
         }
