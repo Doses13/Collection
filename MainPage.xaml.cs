@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 using Windows.Storage;
+using System.Security.Authentication;
 
 // Joseph made this comment
 
@@ -100,9 +101,20 @@ namespace collectionTest1
             if (activeCollection != -1)
             {
                 changeScreen(screens.AddItem);
-                for (int i = 0; i < collectionList[activeCollection].attributes.Count; ++i)
+                for (int i = 0; i < collectionList[activeCollection].attributes.Count; i++)
                 {
+                    TextBox attributeTextBox = new TextBox();
+                    attributeTextBox.Header = collectionList[activeCollection].attributes[i];
+                    //attributeTextBox.PlaceholderText = curItem.attributes[i];
 
+                    //attributeTextBox.Height = Auto;
+                    //attributeTextBox.Width = Auto;
+
+                    attributeTextBox.Margin = new Thickness(20);
+                    attributeTextBox.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    attributeTextBox.IsEnabled = true;
+                    
+                    addItemAttributePanel.Children.Add(attributeTextBox);
                 }
             }
                         
@@ -129,7 +141,7 @@ namespace collectionTest1
         {
             if (!string.IsNullOrEmpty(addItemName.Text) && !string.IsNullOrEmpty(addItemDescription.Text))
             {
-                addAttributeToNewItemPage();
+                //addAttributeToNewItemPage();
                 BitmapImage bitmapImage = new BitmapImage();
                 Item newlyCreatedItem = new Item();
 
@@ -196,8 +208,16 @@ namespace collectionTest1
                 addItemName.Text = "";
                 addItemDescription.Text = "";
                 collectionList[activeCollection].items.Add(newlyCreatedItem);
+
+                foreach (TextBox attributeBox in addItemAttributePanel.Children)
+                {
+                    newlyCreatedItem.attributes.Add(attributeBox.Text);
+                }
+
+                addItemAttributePanel.Children.Clear();
+
                 // Add Button and image, shift "Add Item" button over
-         
+
 
                 ItemGrid.Children.Add(addedItemImage);
                 Grid.SetColumn(addedItemImage, column);
@@ -220,6 +240,9 @@ namespace collectionTest1
                 itemRequiredField.Visibility = Visibility.Visible;
                 itemRequiredFieldDesc.Visibility = Visibility.Visible;
             }
+
+
+
         }
 
         // Event handler for when user clicks on an image of an item in the collection
@@ -412,6 +435,10 @@ namespace collectionTest1
 
         private void backButtonPress(object sender, RoutedEventArgs e)
         {
+            if (currentScreen == screens.Single || currentScreen == screens.AddItem)
+            {
+                attributePanel.Children.Clear();
+            }
             changeScreen(screens.Home);
         }
 
@@ -429,6 +456,9 @@ namespace collectionTest1
         public void NewCollectionFunc(object sender, RoutedEventArgs e)
         {
             changeScreen(screens.AddCol);
+
+            collectionAttributeView.Children.Clear();
+
             // to whoever is working on this make sure that collections have unique names pls. JB
             collection = new Collection();
             collectionList.Add(collection);
@@ -575,9 +605,12 @@ namespace collectionTest1
             curItem.name = singleViewName.Text;
             curItem.description = singleViewDescription.Text;
 
-            foreach (string attribute in curItem.attributes)
+            int i = 0;
+
+            foreach (TextBox attributeBox in attributePanel.Children)
             {
-                //Need to be able to update attributes
+                curItem.attributes[i] = attributeBox.Text;
+                i++;
             }
 
         }
