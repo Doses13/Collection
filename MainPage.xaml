@@ -90,10 +90,10 @@
                 </StackPanel>
                 <Button x:Name="addColConfirm" Content="Add Collection" Click="NewCollectionConfirm" Margin="10" HorizontalAlignment="Center" Width="200" Height="50" Background="ForestGreen"/>
             </StackPanel>
-            <StackPanel x:Name="collectionAttributeView" Orientation="Vertical">
+            <StackPanel x:Name="collectionAttributeView" Orientation="Vertical" Visibility="Visible">
                 <TextBlock Text="Attributes" Foreground="White" Margin="25"/>
             </StackPanel>
-            </StackPanel>
+        </StackPanel>
        
         <Grid x:Name="singleItemView" Visibility="Visible">
             
