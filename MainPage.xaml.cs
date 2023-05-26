@@ -509,6 +509,8 @@ namespace collectionTest1
             }
         }
 
+        
+
         // adds textboxes for all attributes in the collection onto the Add Item page 
         // Removing them (without removing the Name and Description textboxes) is a little bit harder
         public void addAttributeToNewItemPage()
@@ -653,6 +655,11 @@ namespace collectionTest1
                 editItem.Visibility = Visibility.Visible;
                 saveItemChanges.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void addColConfirm_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+
         }
     }
 }

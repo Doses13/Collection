@@ -85,8 +85,8 @@
                 </StackPanel>
                 <TextBox x:Name="attText" Header="Enter an Attribute" PlaceholderText="Attribute" Width="200" HorizontalAlignment="Left" Margin="25"/>
                 <StackPanel x:Name="attButs" Orientation="Horizontal" Visibility="Visible">
-                    <Button x:Name="addAtt" Content="Add" Margin="10" Click="addAttribute"/>
-                    <Button x:Name="subAtt" Content="Sub" Margin="10" Click="subAttribute"/>
+                    <Button x:Name="addAtt" Content="Add Attribute" Margin="10" Click="addAttribute"/>
+                    <Button x:Name="subAtt" Content="Sub Attribute" Margin="10" Click="subAttribute"/>
                 </StackPanel>
                 <Button x:Name="addColConfirm" Content="Add Collection" Click="NewCollectionConfirm" Margin="10" HorizontalAlignment="Center" Width="200" Height="50" Background="ForestGreen"/>
             </StackPanel>
