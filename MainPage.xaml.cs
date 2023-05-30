@@ -70,6 +70,8 @@ namespace collectionTest1
         {
             this.InitializeComponent();
             this.SizeChanged += resize;
+            changeScreen(screens.Home);
+
             /* Init collections
             Collection rocks = new Collection();
             collectionList.Add(rocks);
@@ -443,7 +445,7 @@ namespace collectionTest1
                 return 0;
             }
 
-            if (currentScreen == screens.Single && screen == screens.Home) // SIngle Item View -> Home
+            if (currentScreen == screens.Single && screen == screens.Home) // Single Item View -> Home
             {
                 Home.Visibility = Visibility.Visible;
                 addItem.Visibility = Visibility.Collapsed;
@@ -451,6 +453,16 @@ namespace collectionTest1
                 addCollection.Visibility = Visibility.Collapsed;
                 singleItemView.Visibility = Visibility.Collapsed;
                 currentScreen = screens.Home;
+                return 0;
+            }
+
+            if (currentScreen == screens.Home && screen == screens.Home)
+            {
+                Home.Visibility = Visibility.Visible;
+                addItem.Visibility = Visibility.Collapsed;
+                addCollection.Visibility = Visibility.Collapsed;
+                backButtonBar.Visibility = Visibility.Collapsed;
+                singleItemView.Visibility = Visibility.Collapsed;
                 return 0;
             }
             return 1;
