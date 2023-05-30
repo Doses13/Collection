@@ -69,7 +69,7 @@ namespace collectionTest1
         public MainPage()
         {
             this.InitializeComponent();
-
+            this.SizeChanged += resize;
             /* Init collections
             Collection rocks = new Collection();
             collectionList.Add(rocks);
