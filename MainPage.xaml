@@ -9,7 +9,6 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <StackPanel Orientation="Vertical" Background="#202020">
-        <!--This is the Main Page View-->
         <StackPanel x:Name="mainPage" Orientation="Vertical">
             <MenuBar Background="#404040">
                 <MenuBarItem Title="File">
@@ -55,8 +54,7 @@
             </StackPanel>
         </StackPanel>
         
-        <!--This is the Add Item View-->
-        <Grid x:Name="addItem" Visibility="Collapsed" KeyDown="addItem_KeyDown">
+        <Grid x:Name="addItem" Visibility="Collapsed">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -95,8 +93,7 @@
 
         </Grid>
         
-        <!--This is the Add Collection View-->
-        <StackPanel x:Name="addCollection" KeyDown="addCollection_KeyDown" Orientation="Horizontal" Visibility="Collapsed">
+        <StackPanel x:Name="addCollection" KeyDown="addColConfirm_KeyDown" PreviewKeyDown="" Orientation="Horizontal" Visibility="Collapsed">
             <StackPanel x:Name="collectionStuff" Orientation="Vertical" Visibility="Visible">
                 <StackPanel Orientation="Horizontal" Visibility="Visible">
                     <TextBox x:Name="colName" Header="Enter Collection Name" PlaceholderText="Name" Width="300" HorizontalAlignment="Left" Margin="25"/>
