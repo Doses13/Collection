@@ -30,7 +30,7 @@ namespace collectionTest1
 {
     public sealed partial class MainPage : Page
     {
-        enum screens{
+        enum screens {
             Home,
             AddItem,
             AddCol,
@@ -63,7 +63,7 @@ namespace collectionTest1
         //Navigation Variables
         screens currentScreen = screens.Home; //Home screen
 
-       
+
 
 
         public MainPage()
@@ -98,7 +98,7 @@ namespace collectionTest1
         // If the user selects that they want the "Condition" attribute for this collection, the "Condition" variable in "WantedItemAttributes" will be turned true
         // When the "Condition" attribute is true, the textbox for "Condition" will be turned visible on the "Add item" page.
         public void newItemFunc(object sender, RoutedEventArgs e)
-        { 
+        {
             if (activeCollection != -1)
             {
 
@@ -117,11 +117,11 @@ namespace collectionTest1
                     attributeTextBox.Margin = new Thickness(20);
                     attributeTextBox.HorizontalAlignment = HorizontalAlignment.Stretch;
                     attributeTextBox.IsEnabled = true;
-                    
+
                     addItemAttributePanel.Children.Add(attributeTextBox);
                 }
             }
-                        
+
 
             // Toggle textboxes visible if attributes were selected when making collection
             /*
@@ -155,7 +155,7 @@ namespace collectionTest1
                 }*/
 
                 singleViewName.Text = addItemName.Text;
-                
+
                 changeScreen(screens.Home);
 
                 // Calculate where this button should go on the grid
@@ -259,7 +259,7 @@ namespace collectionTest1
             singleViewDescription.Text = curItem.description;
             singleItemImage.Source = (sender as Image).Source;
 
-            for(int i = 0; i < collectionList[activeCollection].attributes.Count; i++)
+            for (int i = 0; i < collectionList[activeCollection].attributes.Count; i++)
             {
                 TextBox attributeTextBox = new TextBox();
                 attributeTextBox.Header = collectionList[activeCollection].attributes[i];
@@ -319,7 +319,7 @@ namespace collectionTest1
             // remove items from grid 
             if (activeCollection >= 0)
             {
-                foreach(var item in collectionList[activeCollection].items)
+                foreach (var item in collectionList[activeCollection].items)
                 {
                     ItemGrid.Children.Remove(item.image);
                 }
@@ -373,7 +373,7 @@ namespace collectionTest1
                 colBut.Margin = new Thickness(10);
                 colBut.CornerRadius = new CornerRadius(10);
                 colBut.Click += collectionButtons;
-                if(i == activeCollection)
+                if (i == activeCollection)
                 {
                     colBut.Background = new SolidColorBrush(Colors.DarkCyan);
                 }
@@ -390,7 +390,7 @@ namespace collectionTest1
         private int changeScreen(screens screen)
         {
             refresh(activeCollection);
-            if(currentScreen == screens.Home && screen == screens.AddItem) // Home -> Add Item
+            if (currentScreen == screens.Home && screen == screens.AddItem) // Home -> Add Item
             {
                 Home.Visibility = Visibility.Collapsed;
                 addItem.Visibility = Visibility.Visible;
@@ -400,7 +400,7 @@ namespace collectionTest1
                 return 0;
             }
 
-            if(currentScreen == screens.Home && screen == screens.AddCol) // Home -> Add Collection
+            if (currentScreen == screens.Home && screen == screens.AddCol) // Home -> Add Collection
             {
                 Home.Visibility = Visibility.Collapsed;
                 addItem.Visibility = Visibility.Collapsed;
@@ -411,7 +411,7 @@ namespace collectionTest1
                 return 0;
             }
 
-            if(currentScreen == screens.Home && screen == screens.Single) // Home -> Single Item View
+            if (currentScreen == screens.Home && screen == screens.Single) // Home -> Single Item View
             {
                 Home.Visibility = Visibility.Collapsed;
                 addItem.Visibility = Visibility.Collapsed;
@@ -422,7 +422,7 @@ namespace collectionTest1
                 return 0;
             }
 
-            if(currentScreen == screens.AddItem && screen == screens.Home) // Add Item -> Home
+            if (currentScreen == screens.AddItem && screen == screens.Home) // Add Item -> Home
             {
                 Home.Visibility = Visibility.Visible;
                 addItem.Visibility = Visibility.Collapsed;
@@ -432,7 +432,7 @@ namespace collectionTest1
                 return 0;
             }
 
-            if(currentScreen == screens.AddCol && screen == screens.Home) // Add Collection -> Home
+            if (currentScreen == screens.AddCol && screen == screens.Home) // Add Collection -> Home
             {
                 Home.Visibility = Visibility.Visible;
                 addItem.Visibility = Visibility.Visible;
@@ -443,7 +443,7 @@ namespace collectionTest1
                 return 0;
             }
 
-            if(currentScreen == screens.Single && screen == screens.Home) // SIngle Item View -> Home
+            if (currentScreen == screens.Single && screen == screens.Home) // SIngle Item View -> Home
             {
                 Home.Visibility = Visibility.Visible;
                 addItem.Visibility = Visibility.Collapsed;
@@ -497,7 +497,7 @@ namespace collectionTest1
                 tempCollection.attributes.Add(attText.Text);
                 TextBlock newAttribute = new TextBlock();
                 newAttribute.Text = attText.Text;
-                newAttribute.Padding=new Thickness(15);
+                newAttribute.Padding = new Thickness(15);
                 newAttribute.Margin = new Thickness(10);
                 collectionAttributeView.Children.Add(newAttribute);
                 attText.Text = "";
@@ -514,7 +514,7 @@ namespace collectionTest1
             }
         }
 
-        
+
 
         // adds textboxes for all attributes in the collection onto the Add Item page 
         // Removing them (without removing the Name and Description textboxes) is a little bit harder
@@ -568,8 +568,8 @@ namespace collectionTest1
                 changeScreen(screens.Home);
                 refresh(collectionList.Count - 1);
             }
-            else 
-            { 
+            else
+            {
                 colRequiredField.Visibility = Visibility.Visible;
             }
         }
@@ -660,9 +660,20 @@ namespace collectionTest1
             }
         }
 
-        private void addColConfirm_KeyDown(object sender, KeyRoutedEventArgs e)
+        private void addCollection_KeyDown(object sender, KeyRoutedEventArgs e)
         {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                NewCollectionConfirm(sender, e);
+            }
+        }
 
+        private void addItem_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if(e.Key == Windows.System.VirtualKey.Enter)
+            {
+                newItemConfirm(sender, e);
+            }
         }
     }
 }
