@@ -12,15 +12,21 @@
         <StackPanel x:Name="mainPage" Orientation="Vertical">
             <MenuBar Background="#404040">
                 <MenuBarItem Title="File">
-                    <MenuFlyoutItem Text="Export Collection" Click="exportCol"/>
-                    <MenuFlyoutItem Text="Import Collection" Click="importCol"/>
+                    <!--MenuFlyoutSubItem Text="Save">
+                        <MenuFlyoutItem Text="Save All Collections"/>
+                        <MenuFlyoutItem Text="Save Active Collection"/>
+                    </MenuFlyoutSubItem>
+                    <MenuFlyoutItem Text="Open"/-->
                     <MenuFlyoutItem Text="Exit" Click="clickExit"/>
                 </MenuBarItem>
                 <MenuBarItem Title="Edit">
-                    <MenuFlyoutItem Text="Add Item" Click="newItemFunc"/>
-                    <MenuFlyoutItem Text="Clear Collection"/>
+                    <MenuFlyoutItem Text="Edit Active Collection"/>
+                    <MenuFlyoutItem Text="Clear Active Collection"/>
+                    <MenuFlyoutItem Text="Remove Active Collection"/>
+                    <MenuFlyoutItem Text="Remove All Collections"/>
                 </MenuBarItem>
                 <MenuBarItem Title="Help">
+                    <MenuFlyoutItem Text="Instructions"/>
                     <MenuFlyoutItem Text="About"/>
                 </MenuBarItem>
             </MenuBar>

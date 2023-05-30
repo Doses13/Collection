@@ -35,11 +35,15 @@ namespace collectionTest1
             AddItem,
             AddCol,
             Single,
+            Collec
         }
         // This list stores all the collections that the user currently has.
         // Gui items should only be added for collections and items present in it. JB    
         List<Collection> collectionList = new List<Collection>();
 
+        //NewCollectionFunc makes this variable a new collection
+        //used my add and sub attribute
+        //added to collectionList by newCollectionConfirm
         Collection tempCollection;
 
         // This variable stores the active collection i.e. the collection whos items are
@@ -56,17 +60,12 @@ namespace collectionTest1
 
         Windows.Storage.StorageFile file;
 
-
         //Navigation Variables
         screens currentScreen = screens.Home; //Home screen
-
-       
-
 
         public MainPage()
         {
             this.InitializeComponent();
-            this.SizeChanged += resize;
 
             /* Init collections
             Collection rocks = new Collection();
@@ -411,7 +410,6 @@ namespace collectionTest1
 
             if(currentScreen == screens.Home && screen == screens.Single) // Home -> Single Item View
             {
-
                 Home.Visibility = Visibility.Collapsed;
                 addItem.Visibility = Visibility.Collapsed;
                 backButtonBar.Visibility = Visibility.Visible;
@@ -419,6 +417,11 @@ namespace collectionTest1
                 singleItemView.Visibility = Visibility.Visible;
                 currentScreen = screens.Single;
                 return 0;
+            }
+
+            if(currentScreen == screens.Home && screen == screens.Collec) // Home -> Collection view
+            {
+
             }
 
             if(currentScreen == screens.AddItem && screen == screens.Home) // Add Item -> Home
@@ -475,6 +478,7 @@ namespace collectionTest1
                 }
             }
         }
+
         public void NewCollectionFunc(object sender, RoutedEventArgs e)
         {
             changeScreen(screens.AddCol);
@@ -570,7 +574,7 @@ namespace collectionTest1
             }
         }
 
-        private async void exportCol(object sender, RoutedEventArgs e)
+        private async void saveCols(object sender, RoutedEventArgs e)
         {
             if (collectionList.Count > 0)
             {
@@ -589,7 +593,7 @@ namespace collectionTest1
             }
         }
 
-        private async void importCol(object sender, RoutedEventArgs e)
+        private async void openCols(object sender, RoutedEventArgs e)
         {
             var picker = new Windows.Storage.Pickers.FileOpenPicker();
             picker.FileTypeFilter.Add(".col"); //This is necessary
