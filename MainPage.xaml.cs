@@ -520,7 +520,7 @@ namespace collectionTest1
         {
             if (tempCollection.attributes.Count > 0)
             {
-                tempCollection.attributes.Remove(collectionList.Last().attributes.Last());
+                tempCollection.attributes.Remove(tempCollection.attributes.Last());
                 collectionAttributeView.Children.Remove(collectionAttributeView.Children.Last());
                 attText.Text = "";
             }
