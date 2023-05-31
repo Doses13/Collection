@@ -22,7 +22,7 @@
                 </MenuBarItem>
                 <MenuBarItem Title="Edit">
                     <MenuFlyoutItem Text="Edit Active Collection"/>
-                    <MenuFlyoutItem Text="Clear Active Collection"/>
+                    <MenuFlyoutItem Text="Clear Active Collection" Click="clearActiveCollection"/>
                     <MenuFlyoutItem Text="Remove Active Collection"/>
                     <MenuFlyoutItem Text="Remove All Collections"/>
                 </MenuBarItem>
@@ -68,6 +68,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel x:Name="addItemFields" Grid.Column="0" Orientation="Vertical" Visibility="Visible">
+                <TextBlock x:Name="addItemColName" Text="The Collection you are in" HorizontalTextAlignment="Center" Width="400" Foreground="White"/>
                 <StackPanel Orientation="Horizontal" Visibility="Visible">
                     <TextBox x:Name="addItemName" Header="Enter item name" PlaceholderText="Name" HorizontalAlignment="Stretch" Margin="25" Width="350" Visibility="Visible"/>
                     <TextBlock x:Name="itemRequiredField" Text="*required" Foreground="Red" Visibility="Collapsed"/>

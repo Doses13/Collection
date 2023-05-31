@@ -110,6 +110,20 @@ namespace collectionTest1
                 addItemAttributePanel.Children.Clear();
                 itemImage.Source = defualtImg;
 
+                addItemColName.Text = "Current Collection: ";
+                if (collectionList[activeCollection].name.Length <= 25)
+                {
+                    addItemColName.Text += collectionList[activeCollection].name;
+                }
+                else
+                {
+                    for (int i = 0; i < 25; ++i)
+                    {
+                        addItemColName.Text += collectionList[activeCollection].name[i];
+                    }
+                    addItemColName.Text += "...";
+                }
+
                 changeScreen(screens.AddItem);
                 for (int i = 0; i < collectionList[activeCollection].attributes.Count; i++)
                 {
@@ -247,6 +261,8 @@ namespace collectionTest1
                 itemRequiredField.Visibility = Visibility.Visible;
                 itemRequiredFieldDesc.Visibility = Visibility.Visible;
             }
+
+            itemRequiredField.Visibility = Visibility.Collapsed;
 
             refresh(activeCollection);
 
@@ -578,6 +594,7 @@ namespace collectionTest1
                 colName.Text = "";
                 attText.Text = "";
                 changeScreen(screens.Home);
+                colRequiredField.Visibility = Visibility.Collapsed;
                 refresh(collectionList.Count - 1);
             }
             else
@@ -686,6 +703,13 @@ namespace collectionTest1
             {
                 newItemConfirm(sender, e);
             }
+        }
+
+        //This need to be fixed
+        public void clearActiveCollection(object sender, RoutedEventArgs e)
+        {
+            collectionList[activeCollection].items.Clear();
+            refresh(activeCollection);
         }
     }
 }
