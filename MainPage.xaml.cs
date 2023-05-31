@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Shapes;
 using Windows.Storage;
 using System.Security.Authentication;
 using System.IO.Pipes;
+using System.ComponentModel.DataAnnotations;
 
 // Joseph made this comment
 
@@ -508,8 +509,35 @@ namespace collectionTest1
         public void NewCollectionFunc(object sender, RoutedEventArgs e)
         {
             changeScreen(screens.AddCol);
-            collectionAttributeView.Children.Clear();
+            collectionAttributeList.Children.Clear();
             tempCollection = new Collection();
+            refresh(activeCollection);
+        }
+
+        private void editCollectionFunc(object sender, RoutedEventArgs e)
+        {
+            changeScreen(screens.AddCol);
+            
+            if (collectionList.Count <= 0)
+            {
+                throw new InvalidOperationException("There is no collection to edit");
+            }
+
+            collectionAttributeList.Children.Clear();
+            tempCollection = collectionList[activeCollection];
+
+            colName.PlaceholderText = tempCollection.name;
+            addColConfirm.Content = "Save";
+
+            foreach(var attribute in tempCollection.attributes)
+            {
+                TextBlock curAttribute = new TextBlock();
+                curAttribute.Text = attribute;
+                curAttribute.Padding = new Thickness(15);
+                curAttribute.Margin = new Thickness(10);
+                collectionAttributeList.Children.Add(curAttribute);
+            }
+
             refresh(activeCollection);
         }
 
@@ -527,7 +555,7 @@ namespace collectionTest1
                 newAttribute.Text = attText.Text;
                 newAttribute.Padding = new Thickness(15);
                 newAttribute.Margin = new Thickness(10);
-                collectionAttributeView.Children.Add(newAttribute);
+                collectionAttributeList.Children.Add(newAttribute);
                 attText.Text = "";
             }
         }
@@ -537,12 +565,10 @@ namespace collectionTest1
             if (tempCollection.attributes.Count > 0)
             {
                 tempCollection.attributes.Remove(tempCollection.attributes.Last());
-                collectionAttributeView.Children.Remove(collectionAttributeView.Children.Last());
+                collectionAttributeList.Children.Remove(collectionAttributeList.Children.Last());
                 attText.Text = "";
             }
         }
-
-
 
         // adds textboxes for all attributes in the collection onto the Add Item page 
         // Removing them (without removing the Name and Description textboxes) is a little bit harder
@@ -559,7 +585,6 @@ namespace collectionTest1
                 addItemFields.Children.Add(textbox);
             }
         }
-
 
         /*public void removeAttributeFromNewItemPage()
         {
@@ -599,7 +624,7 @@ namespace collectionTest1
             }
             else
             {
-                colRequiredField.Visibility = Visibility.Visible;
+                colNameRequiredField.Visibility = Visibility.Visible;
             }
         }
 

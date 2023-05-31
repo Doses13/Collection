@@ -21,7 +21,8 @@
                     <MenuFlyoutItem Text="Exit" Click="clickExit"/>
                 </MenuBarItem>
                 <MenuBarItem Title="Edit">
-                    <MenuFlyoutItem Text="Edit Active Collection"/>
+                    <MenuFlyoutItem Text="Edit Active Collection" Click="editCollectionFunc"/>
+
                     <MenuFlyoutItem Text="Clear Active Collection" Click="clearActiveCollection"/>
                     <MenuFlyoutItem Text="Remove Active Collection"/>
                     <MenuFlyoutItem Text="Remove All Collections"/>
@@ -97,24 +98,42 @@
         </Grid>
         
         <!--This is the Add Collection View-->
-        <StackPanel x:Name="addCollection" KeyDown="addCollection_KeyDown" Orientation="Horizontal" Visibility="Collapsed">
-            <StackPanel x:Name="collectionStuff" Orientation="Vertical" Visibility="Visible">
-                <StackPanel Orientation="Horizontal" Visibility="Visible">
-                    <TextBox x:Name="colName" Header="Enter Collection Name" PlaceholderText="Name" Width="300" HorizontalAlignment="Left" Margin="25"/>
-                    <TextBlock x:Name="colRequiredField" Text="*required" Foreground="Red" Visibility="Collapsed"/>
-                </StackPanel>
-                <TextBox x:Name="attText" Header="Enter an Attribute" PlaceholderText="Attribute" Width="200" HorizontalAlignment="Left" Margin="25"/>
-                <StackPanel x:Name="attButs" Orientation="Horizontal" Visibility="Visible">
-                    <Button x:Name="addAtt" Content="Add Attribute" Margin="10" Click="addAttribute"/>
-                    <Button x:Name="subAtt" Content="Sub Attribute" Margin="10" Click="subAttribute"/>
+        <Grid x:Name="addCollection" KeyDown="addCollection_KeyDown" Visibility="Visible">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel x:Name="collectionStuff" Grid.Column="0" Orientation ="Vertical" Visibility="Visible">
+                <StackPanel Orientation="Vertical" Visibility="Visible">
+                    <TextBlock Text="Item Details" Foreground="White" FontSize ="20" Margin="25" HorizontalAlignment="Center" TextDecorations="Underline"/>
+                    <TextBlock x:Name="colNameRequiredField" Text="*required" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="25,0"/>
+                    <TextBox x:Name="colName" Header="Collection Name" Width ="auto" PlaceholderText="Name" HorizontalAlignment="Stretch" Margin="25,0,25,25"/>
+                    
+                    <TextBlock x:Name="colDesRequiredField" Text="*required" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="25,0"/>
+                    <TextBox x:Name="colDescription" Header="Collection Description" Width="auto" MinHeight="200" PlaceholderText="Description" HorizontalAlignment="Stretch" Margin="25,0,25,25"/>
                 </StackPanel>
                 <Button x:Name="addColConfirm" Content="Add Collection" Click="NewCollectionConfirm" Margin="10" HorizontalAlignment="Center" Width="200" Height="50" Background="ForestGreen"/>
             </StackPanel>
             
-            <StackPanel x:Name="collectionAttributeView" Orientation="Vertical" Visibility="Visible">
-                <TextBlock Text="Attributes" Foreground="White" Margin="25" Visibility="Visible"/>
+            <StackPanel x:Name="collectionAttributeView" Grid.Column="1" Orientation="Vertical">
+                <TextBlock Text="Attributes" Foreground="White" FontSize ="20" Margin="25" HorizontalAlignment="Center" TextDecorations="Underline"/>
+                <ScrollViewer x:Name="collectionAttributeScroller" MinHeight="100" MaxHeight="500" Background="Black" BorderBrush="White" BorderThickness="1" Margin="25,0">
+                    <StackPanel x:Name="collectionAttributeList" Orientation="Vertical"/>
+                </ScrollViewer>
+                <TextBox x:Name="attText" Header="Enter an Attribute" Width="Auto" PlaceholderText="Attribute" HorizontalAlignment="Stretch" Margin="25,10"/>
+                <Grid x:Name="attButs" Visibility="Visible">
+                    <Button x:Name="addAtt" Grid.Column="0" Content="Add Attribute" Margin="25,0" HorizontalAlignment="Left" Click="addAttribute"/>
+                    <Button x:Name="subAtt" Grid.Column="1" Content="Remove Attribute" Margin="25,0" HorizontalAlignment="Right" Click="subAttribute"/>
+                </Grid>
             </StackPanel>
-            </StackPanel>
+            
+        </Grid>
        
         <Grid x:Name="singleItemView" Visibility="Visible">
             
