@@ -504,7 +504,7 @@ namespace collectionTest1
 
         public void addAttribute(object sender, RoutedEventArgs e)
         {
-            if (attText.Text != null || attText.Text == "")
+            if (attText.Text != null && attText.Text != "")
             {
                 tempCollection.attributes.Add(attText.Text);
                 TextBlock newAttribute = new TextBlock();
