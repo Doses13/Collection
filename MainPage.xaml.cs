@@ -619,7 +619,7 @@ namespace collectionTest1
                 colName.Text = "";
                 attText.Text = "";
                 changeScreen(screens.Home);
-                colRequiredField.Visibility = Visibility.Collapsed;
+                colNameRequiredField.Visibility = Visibility.Collapsed;
                 refresh(collectionList.Count - 1);
             }
             else
