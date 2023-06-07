@@ -22,6 +22,8 @@ using Windows.Storage;
 using System.Security.Authentication;
 using System.IO.Pipes;
 using System.ComponentModel.DataAnnotations;
+using System.ServiceModel.Channels;
+using Windows.UI.Popups;
 
 // Joseph made this comment
 
@@ -759,7 +761,7 @@ namespace collectionTest1
             }
         }
 
-        //This need to be fixed
+        //This need to be fixed? I believe it's something with the refresh though
         public void clearActiveCollection(object sender, RoutedEventArgs e)
         {
             if (activeCollection != -1 || collectionList.Count != 0)
@@ -767,6 +769,13 @@ namespace collectionTest1
                 collectionList[activeCollection].items.Clear();
                 refresh(activeCollection);
             }
+        }
+
+        public void helpClicked(object sender, RoutedEventArgs e)
+        {
+            MessageDialog message = new MessageDialog("Application: Collection Demo\n" +
+                "Created by: Gabe, Joseph, Nathan, and Cole\n");
+            message.ShowAsync();
         }
     }
 }

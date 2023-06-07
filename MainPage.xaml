@@ -29,7 +29,7 @@
                 </MenuBarItem>
                 <MenuBarItem Title="Help">
                     <MenuFlyoutItem Text="Instructions"/>
-                    <MenuFlyoutItem Text="About"/>
+                    <MenuFlyoutItem Text="About" Click="helpClicked"/>
                 </MenuBarItem>
             </MenuBar>
             <CommandBar x:Name="backButtonBar" Visibility="Collapsed" AllowDrop="False" FlowDirection="RightToLeft" OverflowButtonVisibility="Collapsed">
