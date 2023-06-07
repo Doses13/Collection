@@ -509,6 +509,9 @@ namespace collectionTest1
         public void NewCollectionFunc(object sender, RoutedEventArgs e)
         {
             changeScreen(screens.AddCol);
+            subAtt.Visibility = Visibility.Visible;
+            addColConfirm.Visibility = Visibility.Visible;
+            editColConfirm.Visibility = Visibility.Collapsed;
             collectionAttributeList.Children.Clear();
             tempCollection = new Collection();
             refresh(activeCollection);
@@ -516,29 +519,36 @@ namespace collectionTest1
 
         private void editCollectionFunc(object sender, RoutedEventArgs e)
         {
-            changeScreen(screens.AddCol);
-            
-            if (collectionList.Count <= 0)
+            if (activeCollection != -1 || collectionList.Count != 0)
             {
-                throw new InvalidOperationException("There is no collection to edit");
+                changeScreen(screens.AddCol);
+
+                subAtt.Visibility = Visibility.Collapsed;
+
+                addColConfirm.Visibility = Visibility.Collapsed;
+                editColConfirm.Visibility = Visibility.Visible;
+
+                collectionAttributeList.Children.Clear();
+                tempCollection = collectionList[activeCollection];
+
+                colName.Text = tempCollection.name;
+
+                if (tempCollection.description != null)
+                {
+                    colDescription.Text = tempCollection.description;
+                }
+
+                foreach(var attribute in tempCollection.attributes)
+                {
+                    TextBlock curAttribute = new TextBlock();
+                    curAttribute.Text = attribute;
+                    curAttribute.Padding = new Thickness(15);
+                    curAttribute.Margin = new Thickness(10);
+                    collectionAttributeList.Children.Add(curAttribute);
+                }
+
+                refresh(activeCollection);
             }
-
-            collectionAttributeList.Children.Clear();
-            tempCollection = collectionList[activeCollection];
-
-            colName.PlaceholderText = tempCollection.name;
-            addColConfirm.Content = "Save";
-
-            foreach(var attribute in tempCollection.attributes)
-            {
-                TextBlock curAttribute = new TextBlock();
-                curAttribute.Text = attribute;
-                curAttribute.Padding = new Thickness(15);
-                curAttribute.Margin = new Thickness(10);
-                collectionAttributeList.Children.Add(curAttribute);
-            }
-
-            refresh(activeCollection);
         }
 
         private void resize(object sender, SizeChangedEventArgs e)
@@ -612,10 +622,29 @@ namespace collectionTest1
 
         public void NewCollectionConfirm(object sender, RoutedEventArgs e)
         {
+
             if (!string.IsNullOrEmpty(colName.Text))
             {
                 collectionList.Add(tempCollection);
                 collectionList.Last().name = colName.Text;
+                colName.Text = "";
+                attText.Text = "";
+                changeScreen(screens.Home);
+                colNameRequiredField.Visibility = Visibility.Collapsed;
+                refresh(collectionList.Count - 1);
+            }
+            else
+            {
+                colNameRequiredField.Visibility = Visibility.Visible;
+            }
+        }
+
+        public void EditCollectionConfirm(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(colName.Text))
+            {
+                collectionList[activeCollection].name = colName.Text;
+                collectionList[activeCollection].description = colDescription.Text;
                 colName.Text = "";
                 attText.Text = "";
                 changeScreen(screens.Home);
@@ -733,8 +762,11 @@ namespace collectionTest1
         //This need to be fixed
         public void clearActiveCollection(object sender, RoutedEventArgs e)
         {
-            collectionList[activeCollection].items.Clear();
-            refresh(activeCollection);
+            if (activeCollection != -1 || collectionList.Count != 0)
+            {
+                collectionList[activeCollection].items.Clear();
+                refresh(activeCollection);
+            }
         }
     }
 }
