@@ -111,7 +111,7 @@
 
             <StackPanel x:Name="collectionStuff" Grid.Column="0" Orientation ="Vertical" Visibility="Visible">
                 <StackPanel Orientation="Vertical" Visibility="Visible">
-                    <TextBlock Text="Item Details" Foreground="White" FontSize ="20" Margin="25" HorizontalAlignment="Center" TextDecorations="Underline"/>
+                    <TextBlock Text="Collection Details" Foreground="White" FontSize ="20" Margin="25" HorizontalAlignment="Center" TextDecorations="Underline"/>
                     <TextBlock x:Name="colNameRequiredField" Text="*required" Foreground="Red" Visibility="Collapsed" HorizontalAlignment="Right" Margin="25,0"/>
                     <TextBox x:Name="colName" Header="Collection Name" Width ="auto" PlaceholderText="Name" HorizontalAlignment="Stretch" Margin="25,0,25,25"/>
                     
